@@ -7,6 +7,10 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CSIPricingConfiguratorDatab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSIProductConfigurator_front", "CSIProductConfigurator_front\CSIProductConfigurator_front.csproj", "{4FEB8152-B82C-47CC-AE03-8FD81D3D2F83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSIProductConfigurationCommon", "CSIProductConfigurationCommon\CSIProductConfigurationCommon.csproj", "{7E0C89A5-BFA3-4226-B3AD-A87CA5E2DEB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSIProductConfigurationBackend", "CSIProductConfigurationBackend\CSIProductConfigurationBackend.csproj", "{55391F8C-ED78-47AC-A452-6BC85C3FF97B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{4FEB8152-B82C-47CC-AE03-8FD81D3D2F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FEB8152-B82C-47CC-AE03-8FD81D3D2F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FEB8152-B82C-47CC-AE03-8FD81D3D2F83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E0C89A5-BFA3-4226-B3AD-A87CA5E2DEB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E0C89A5-BFA3-4226-B3AD-A87CA5E2DEB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E0C89A5-BFA3-4226-B3AD-A87CA5E2DEB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E0C89A5-BFA3-4226-B3AD-A87CA5E2DEB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55391F8C-ED78-47AC-A452-6BC85C3FF97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55391F8C-ED78-47AC-A452-6BC85C3FF97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55391F8C-ED78-47AC-A452-6BC85C3FF97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55391F8C-ED78-47AC-A452-6BC85C3FF97B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
