@@ -225,6 +225,7 @@
     <Build Include="dbo\Foreign Keys\FK_ConfigurationParameterValue_ConfigurationID_PK_Configuration_ID.sql" />
     <Build Include="dbo\Foreign Keys\FK_ConfigurationParameterValue_ParameterID_PK_Parameter_ID.sql" />
     <Build Include="dbo\Foreign Keys\FK_ConfigurationTypeOutput_ConfigurationTypeID_PK_ConfigurationType_ID.sql" />
+    <Build Include="dbo\Foreign Keys\FK_ParameterValue_ParameterID_PK_Parameter_ID.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CSIPricingConfiguratorDatabase.publish.xml" />
