@@ -8,6 +8,7 @@
     [CreatedBy]     NVARCHAR (255)   NOT NULL,
     [ModifiedBy]    NVARCHAR (255)   NOT NULL,
     [RowVersion]    ROWVERSION       NOT NULL,
-    [Label]         NVARCHAR (255)   NOT NULL
+    [Label]         NVARCHAR (255)   NOT NULL, 
+    CONSTRAINT [PK_Parameter] PRIMARY KEY ([ID])
 );
 

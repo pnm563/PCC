@@ -5,6 +5,7 @@
     [CreatedBy]    NVARCHAR (255)   NOT NULL,
     [ModifiedBy]   NVARCHAR (255)   NOT NULL,
     [RowVersion]   ROWVERSION       NOT NULL,
-    [Name]         NVARCHAR (255)   NOT NULL
+    [Name]         NVARCHAR (255)   NOT NULL, 
+    CONSTRAINT [PK_ConfigurationType] PRIMARY KEY ([ID])
 );
 

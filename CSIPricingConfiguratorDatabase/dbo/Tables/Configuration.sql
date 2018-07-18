@@ -8,6 +8,7 @@
     [CreatedBy]           NVARCHAR (255)   NOT NULL,
     [ModifiedBy]          NVARCHAR (255)   NOT NULL,
     [RowVersion]          ROWVERSION       NOT NULL,
-    [ConfigurationTypeID] UNIQUEIDENTIFIER NOT NULL
+    [ConfigurationTypeID] UNIQUEIDENTIFIER NOT NULL, 
+    CONSTRAINT [PK_Configuration] PRIMARY KEY ([ID])
 );
 

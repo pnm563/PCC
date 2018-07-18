@@ -103,6 +103,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="Security\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Foreign Keys" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Configuration.sql">
@@ -218,6 +219,12 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="dbo\Stored Procedures\usp_Return100.sql" />
+    <Build Include="dbo\Foreign Keys\FK_ConfigurationTypeParameter_ConfigurationTypeID_PK_ConfigurationType_ID.sql" />
+    <Build Include="dbo\Foreign Keys\FK_ConfigurationTypeParameter_ParameterID_PK_Parameter_ID.sql" />
+    <Build Include="dbo\Foreign Keys\FK_Configuration_ConfigurationTypeID_PK_ConfigurationType_ID.sql" />
+    <Build Include="dbo\Foreign Keys\FK_ConfigurationParameterValue_ConfigurationID_PK_Configuration_ID.sql" />
+    <Build Include="dbo\Foreign Keys\FK_ConfigurationParameterValue_ParameterID_PK_Parameter_ID.sql" />
+    <Build Include="dbo\Foreign Keys\FK_ConfigurationTypeOutput_ConfigurationTypeID_PK_ConfigurationType_ID.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CSIPricingConfiguratorDatabase.publish.xml" />
