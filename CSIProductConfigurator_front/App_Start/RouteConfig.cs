@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace CSISalesConfigurator_front
+namespace CSIProductConfigurator_front
 {
     public class RouteConfig
     {

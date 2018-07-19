@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CSISalesConfigurator_front.Models.Scratch
+namespace CSIProductConfigurator_front.Models.Scratch
 {
     public class Warbler
     {

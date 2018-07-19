@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace CSISalesConfigurator_front
+namespace CSIProductConfigurator_front
 {
     public class BundleConfig
     {

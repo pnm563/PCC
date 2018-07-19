@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CSISalesConfigurator_front.Controllers
+namespace CSIProductConfigurator_front.Controllers
 {
     public class HomeController : Controller
     {

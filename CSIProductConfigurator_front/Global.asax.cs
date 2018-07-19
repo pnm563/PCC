@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace CSISalesConfigurator_front
+namespace CSIProductConfigurator_front
 {
     public class MvcApplication : System.Web.HttpApplication
     {

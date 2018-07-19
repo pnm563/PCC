@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace CSISalesConfigurator_front
+namespace CSIProductConfigurator_front
 {
     public class FilterConfig
     {
