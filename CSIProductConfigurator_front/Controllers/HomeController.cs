@@ -19,16 +19,16 @@ namespace CSIProductConfigurator_front.Controllers
         {
             List<String> customerCodes = new List<String> { "cust001", "cust002", "Cust003" };
 
-            //ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
-            //List<ConfigurationType> cTypes = serviceRequest.ExecuteRequest<List<ConfigurationType>>(HttpRequestMethod.GET,
-            //    String.Format(
-            //        ServiceGatewayURI.ConfigurationTypeURI)
-            //);
+            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
+            List<ConfigurationType> cTypes = serviceRequest.ExecuteRequest<List<ConfigurationType>>(HttpRequestMethod.GET,
+                String.Format(
+                    ServiceGatewayURI.ConfigurationTypeURI)
+            );
 
             ConfigurationView newView = new ConfigurationView()
             {
                 CustomerCodes = customerCodes,
-                //ConfigurationTypes = cTypes
+                ConfigurationTypes = cTypes
             };
 
             return View(newView);
