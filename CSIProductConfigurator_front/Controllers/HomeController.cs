@@ -34,6 +34,19 @@ namespace CSIProductConfigurator_front.Controllers
             return View(newView);
         }
 
+        public ActionResult ConfigurationTypeParameterList()
+        {
+            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
+
+            List<ConfigurationTypeParameter> types = serviceRequest.ExecuteRequest<List<ConfigurationTypeParameter>>(HttpRequestMethod.GET,
+                String.Format(
+                    ServiceGatewayURI.ConfigurationTypeParameterURI)
+            );
+
+            
+            return PartialView("_ConfigurationTypeParameterList", types);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
