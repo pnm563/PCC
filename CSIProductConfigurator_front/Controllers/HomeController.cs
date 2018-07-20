@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,17 +35,24 @@ namespace CSIProductConfigurator_front.Controllers
             return View(newView);
         }
 
-        public ActionResult ConfigurationTypeParameterList()
+        public ActionResult ConfigurationTypeParameterList(String id)
         {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Also handle if id not found
+
             ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
 
-            List<ConfigurationTypeParameter> types = serviceRequest.ExecuteRequest<List<ConfigurationTypeParameter>>(HttpRequestMethod.GET,
+            List<ConfigurationTypeParameter> cTypeParams = serviceRequest.ExecuteRequest<List<ConfigurationTypeParameter>>(HttpRequestMethod.GET,
                 String.Format(
-                    ServiceGatewayURI.ConfigurationTypeParameterURI)
+                    ServiceGatewayURI.GetConfigurationTypeParameterByConfigurationTypeIDURI, id)
             );
 
             
-            return PartialView("_ConfigurationTypeParameterList", types);
+            return PartialView("_ConfigurationTypeParameterList", cTypeParams);
         }
 
         public ActionResult About()

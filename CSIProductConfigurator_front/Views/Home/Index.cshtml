@@ -18,11 +18,37 @@
 
 <hr />
 
-<h2>@Model.ConfigurationTypes.First().Name</h2>
 
-@Html.DropDownList("maintenanceTypeDropDown", new SelectList(Model.ConfigurationTypes, "ID", "Name"), "-- Choose maintenance type --", htmlAttributes: new { @class = "form-control" })
+<div class="row">
+    <div class="col-md-12">
 
 
+        @Html.DropDownList("configurationTypeDropDown", new SelectList(Model.ConfigurationTypes, "ID", "Name"), "-- Choose configuration type --", htmlAttributes: new { @class = "form-control" })
+
+    </div>
+</div>
+
+<div id="configurationTypeContent"></div>
+
+<script>
+
+    $('[id^=configurationTypeDropDown]').on('change', function () {
+        if (this.selectedIndex == 0) {
+            return;
+        }
+        var id = this.value;
+        $('#configurationTypeContent').load(
+            "/Home/ConfigurationTypeParameterList/" + id,
+            function (response, status) {
+                
+                return;
+            });
+        return;
+    });
+
+</script>
+
+<!--
 
 <div class="row">
     <div class="col-md-4">
@@ -78,5 +104,4 @@
     </div>
 </div>
 
-
-
+-->
