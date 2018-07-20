@@ -73,16 +73,16 @@ namespace CSIProductConfigurator_front.Controllers
 
             
 
-            foreach (ConfigurationTypeParameter thing in cTypeParams)
+            foreach (ConfigurationTypeParameter ctp in cTypeParams)
             {
-                thing.ParameterValues = new List<ParameterValue>();
+                ctp.ParameterValues = new List<ParameterValue>();
 
-                foreach (ParameterValue thing2 in paramVals)
+                foreach (ParameterValue pv in paramVals)
                 {
 
-                    if (thing2.ParameterID == thing.ParameterID)
+                    if (pv.ParameterID == ctp.ParameterID)
                     {
-                        thing.ParameterValues.Add(thing2);
+                        ctp.ParameterValues.Add(pv);
                     }
                 }
             }

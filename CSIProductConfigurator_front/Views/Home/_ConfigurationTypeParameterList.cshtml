@@ -6,17 +6,27 @@
 
 @foreach (ConfigurationTypeParameter item in Model)
 {
-    <h2>@item.ParameterName</h2>
 
-    if (!item.IsHasValues)
-    {
+    <div class="row">
+        <div class="col-md-12">
 
-        <div class="row">
-            <div class="col-md-12">
+            <h2>@item.ParameterName</h2>
 
-                @Html.LabelFor(i => item.ParameterName)
-            </div>
         </div>
-    }
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            @if (item.IsHasValues)
+            {
+                @Html.DropDownList(item.ParameterName + "DropDown", new SelectList(item.ParameterValues, "ParameterID", "Label"), "-- Please choose --", htmlAttributes: new { @class = "form-control" })
+            }
+            else
+            {
+                <text>>free text baby</text>
+            }
+        </div>
+    </div>
+
 
 }
