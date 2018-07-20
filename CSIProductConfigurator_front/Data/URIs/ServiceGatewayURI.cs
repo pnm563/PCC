@@ -20,5 +20,12 @@ namespace CSIProductConfigurator_front.Data.URIs
 
         #endregion
 
+        #region ParameterValue
+
+        public const String ParameterValueURI = "API/ParameterValue";
+        public const String GetParameterValueByParameterIDURI = ParameterValueURI + "?parameterID={0}";
+
+        #endregion
+
     }
 }

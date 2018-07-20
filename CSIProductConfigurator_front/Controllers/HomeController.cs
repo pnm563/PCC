@@ -47,6 +47,7 @@ namespace CSIProductConfigurator_front.Controllers
             ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
 
             List<ConfigurationTypeParameter> cTypeParams = new List<ConfigurationTypeParameter>();
+            List<ParameterValue> paramVals = new List<ParameterValue>();
 
             try
             {
@@ -58,7 +59,35 @@ namespace CSIProductConfigurator_front.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            try
+            {
+                paramVals = serviceRequest.ExecuteRequest<List<ParameterValue>>(HttpRequestMethod.GET,
+                    String.Format(
+                        ServiceGatewayURI.ParameterValueURI)
+                );
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             
+
+            foreach (ConfigurationTypeParameter thing in cTypeParams)
+            {
+                thing.ParameterValues = new List<ParameterValue>();
+
+                foreach (ParameterValue thing2 in paramVals)
+                {
+
+                    if (thing2.ParameterID == thing.ParameterID)
+                    {
+                        thing.ParameterValues.Add(thing2);
+                    }
+                }
+            }
+
+
             return PartialView("_ConfigurationTypeParameterList", cTypeParams);
         }
 
