@@ -46,10 +46,17 @@ namespace CSIProductConfigurator_front.Controllers
 
             ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
 
-            List<ConfigurationTypeParameter> cTypeParams = serviceRequest.ExecuteRequest<List<ConfigurationTypeParameter>>(HttpRequestMethod.GET,
-                String.Format(
-                    ServiceGatewayURI.GetConfigurationTypeParameterByConfigurationTypeIDURI, id)
-            );
+            List<ConfigurationTypeParameter> cTypeParams = new List<ConfigurationTypeParameter>();
+
+            try
+            {
+                cTypeParams = serviceRequest.ExecuteRequest<List<ConfigurationTypeParameter>>(HttpRequestMethod.GET,
+                    String.Format(
+                        ServiceGatewayURI.GetConfigurationTypeParameterByConfigurationTypeIDURI, id)
+                );
+            } catch (Exception ex) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             
             return PartialView("_ConfigurationTypeParameterList", cTypeParams);

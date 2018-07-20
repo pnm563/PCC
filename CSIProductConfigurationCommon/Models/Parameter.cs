@@ -14,6 +14,6 @@ namespace CSIProductConfigurationCommon.Models
         public String Name { get; set; }
         public String Label { get; set; }
         public bool IsHasValues { get; set; }
-        public AttributeType ParameterType { get; set; }
+        public AttributeType ParameterType1 { get; set; }
     }
 }

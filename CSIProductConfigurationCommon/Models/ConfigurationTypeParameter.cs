@@ -1,4 +1,5 @@
-﻿using Niu.OneWorkspace.Common.Attributes;
+﻿using CSIProductConfigurationCommon.Enums;
+using Niu.OneWorkspace.Common.Attributes;
 using Niu.OneWorkspace.Common.Entities;
 using Niu.OneWorkspace.Common.Interfaces;
 using System;
@@ -14,7 +15,8 @@ namespace CSIProductConfigurationCommon.Models
         public String ConfigurationTypeID { get; set; }
         public String ParameterID { get; set; }
         public String ParameterName { get; set; }
-        public String ParameterType { get; set; }
+        public AttributeType ParameterType1 { get; set; }
+        public bool IsHasValues { get; set; }
 
         [Ignore]
         public bool IsProcessed { get; set; }

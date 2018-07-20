@@ -26,7 +26,11 @@ namespace CSIProductConfigurationBackend.CSIProductConfiguration
             paramId.Value = configurationTypeID;
             parameters.Add(paramId);
 
-            return CSIProductConfigurationRepositoryFactory.ConfigurationTypeParameterRepository.SelectByProcedure(tableAction, parameters);
+            List<ConfigurationTypeParameter> debugList = new List<ConfigurationTypeParameter>();
+
+            debugList = CSIProductConfigurationRepositoryFactory.ConfigurationTypeParameterRepository.SelectByProcedure(tableAction, parameters);
+
+            return debugList;
 
         }
     }

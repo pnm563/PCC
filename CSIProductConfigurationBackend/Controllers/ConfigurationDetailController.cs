@@ -41,7 +41,7 @@ namespace CSIProductConfigurationBackend.Controllers
                 else if (parameter.ParameterName.Equals("PTFApplications")) value = "Quarterly";
                 else if (parameter.ParameterName.Equals("IsBackupManagement")) value = "yes";
                 else if (parameter.ParameterName.Equals("IsBackupEncryption")) value = "yes";
-                configurationDetail.ConfigurationParameterValues.Add(new ConfigurationParameterValue() { ConfigurationID = configurationDetail.Id, ParameterID = parameter.ParameterID, ParameterName = parameter.ParameterName, ParameterType = parameter.ParameterType, Value = value });
+                configurationDetail.ConfigurationParameterValues.Add(new ConfigurationParameterValue() { ConfigurationID = configurationDetail.Id, ParameterID = parameter.ParameterID, ParameterName = parameter.ParameterName, ParameterType1 = parameter.ParameterType1, Value = value });
             }
 
             ConfigurationTypeOutputContext _ctoctx = new ConfigurationTypeOutputContext();

@@ -11,7 +11,8 @@ SELECT ctp.[ID]
       ,ctp.[ConfigurationTypeID]
       ,ctp.[ParameterID]
       ,p.Name ParameterName
-      ,p.ParameterType
+      ,p.ParameterType1
+	  ,p.IsHasValues
   FROM [CSIPricingConfigurator].[dbo].[ConfigurationTypeParameter] ctp,
   Parameter p WHERE p.ID = ParameterID
   AND CONVERT(NVARCHAR(255), ConfigurationTypeID) = @ConfigurationTypeID

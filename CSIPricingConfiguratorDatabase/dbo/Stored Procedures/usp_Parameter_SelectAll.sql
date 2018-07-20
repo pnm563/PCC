@@ -3,7 +3,7 @@ AS
 BEGIN
 SELECT [Name]
       ,[IsHasValues]
-      ,[ParameterType]
+      ,[ParameterType1]
       ,[ID]
       ,[DateCreated]
       ,[DateModified]

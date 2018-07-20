@@ -230,4 +230,7 @@
   <ItemGroup>
     <None Include="CSIPricingConfiguratorDatabase.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="CSIPricingConfiguratorDatabase.refactorlog" />
+  </ItemGroup>
 </Project>

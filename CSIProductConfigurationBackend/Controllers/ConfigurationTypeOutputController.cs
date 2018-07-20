@@ -9,23 +9,21 @@ using System.Web.Http;
 
 namespace CSIProductConfigurationBackend.Controllers
 {
-    public class ConfigurationTypeParameterController : ApiController
+    public class ConfigurationTypeOutputController : ApiController
     {
-        public List<ConfigurationTypeParameter> Get()
+        // GET api/<controller>
+        public IEnumerable<string> Get()
         {
-            ConfigurationTypeParameterContext _ptx = new ConfigurationTypeParameterContext();
-
-            return _ptx.GetConfigurationTypeParameters();
+            return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>
-        public List<ConfigurationTypeParameter> Get(String configurationTypeID)
+        public List<ConfigurationTypeOutput> Get(String configurationTypeID)
         {
-            ConfigurationTypeParameterContext _ptx = new ConfigurationTypeParameterContext();
+            ConfigurationTypeOutputContext _otx = new ConfigurationTypeOutputContext();
 
-            List<ConfigurationTypeParameter> debugList = new List<ConfigurationTypeParameter>();
+            List<ConfigurationTypeOutput> debugList = new List<ConfigurationTypeOutput>();
 
-            debugList = _ptx.GetConfigurationTypeParametersByConfigurationTypeID(configurationTypeID);
+            debugList = _otx.GetConfigurationTypeOutputsByConfigurationTypeID(configurationTypeID);
 
             return debugList;
         }
