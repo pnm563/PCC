@@ -4,6 +4,6 @@ BEGIN
 SELECT [ParameterID]
       ,[Label]
       ,[Value]
-  FROM [CSIPricingConfigurator].[dbo].[ParameterValue]
+  FROM [ParameterValue]
 
 END

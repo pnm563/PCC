@@ -8,6 +8,6 @@ AS
 BEGIN
 SELECT [Name]
       ,[ExpressionName]
-  FROM [CSIPricingConfigurator].[dbo].[Case]
+  FROM [Case]
 
 END

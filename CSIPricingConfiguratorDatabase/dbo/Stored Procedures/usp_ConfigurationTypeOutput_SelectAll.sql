@@ -13,6 +13,6 @@ SELECT [ID]
       ,[Label]
       ,[ConfigurationTypeID]
       ,[ValueType]
-  FROM [CSIPricingConfigurator].[dbo].[ConfigurationTypeOutput]
+  FROM [ConfigurationTypeOutput]
 
 END

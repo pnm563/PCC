@@ -28,6 +28,31 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.Name)
+
+    </div>
+    <div class="col-md-8">
+        @Html.TextBoxFor(m => m.Name)
+
+    </div>
+
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.Description)
+
+    </div>
+
+
+
+    <div class="col-md-8">
+        @Html.TextBoxFor(m => m.Description)
+
+    </div>
+</div>
+
+
+
 <div id="configurationTypeContent"></div>
 
 <script>
@@ -40,7 +65,7 @@
         $('#configurationTypeContent').load(
             "/Home/ConfigurationTypeParameterList/" + id,
             function (response, status) {
-                
+
                 return;
             });
         return;

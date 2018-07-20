@@ -4,6 +4,6 @@ BEGIN
 SELECT [Name]
       ,[Value]
       ,[ValueType]
-  FROM [CSIPricingConfigurator].[dbo].[Constant]
+  FROM [Constant]
 
 END

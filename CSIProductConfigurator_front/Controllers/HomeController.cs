@@ -54,7 +54,7 @@ namespace CSIProductConfigurator_front.Controllers
                     String.Format(
                         ServiceGatewayURI.GetConfigurationTypeParameterByConfigurationTypeIDURI, id)
                 );
-            } catch (Exception ex) {
+            } catch {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 

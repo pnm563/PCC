@@ -218,7 +218,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="dbo\Stored Procedures\usp_Return100.sql" />
     <Build Include="dbo\Foreign Keys\FK_ConfigurationTypeParameter_ConfigurationTypeID_PK_ConfigurationType_ID.sql" />
     <Build Include="dbo\Foreign Keys\FK_ConfigurationTypeParameter_ParameterID_PK_Parameter_ID.sql" />
     <Build Include="dbo\Foreign Keys\FK_Configuration_ConfigurationTypeID_PK_ConfigurationType_ID.sql" />
@@ -226,6 +225,10 @@
     <Build Include="dbo\Foreign Keys\FK_ConfigurationParameterValue_ParameterID_PK_Parameter_ID.sql" />
     <Build Include="dbo\Foreign Keys\FK_ConfigurationTypeOutput_ConfigurationTypeID_PK_ConfigurationType_ID.sql" />
     <Build Include="dbo\Foreign Keys\FK_ParameterValue_ParameterID_PK_Parameter_ID.sql" />
+    <Build Include="dbo\Stored Procedures\usp_ParameterValue_SelectByParameterID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="CSIPricingConfiguratorDatabase.publish.xml" />

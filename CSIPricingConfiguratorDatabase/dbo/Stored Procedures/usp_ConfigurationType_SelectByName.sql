@@ -9,7 +9,7 @@ SELECT [ID]
       ,[ModifiedBy]
       ,[RowVersion]
       ,[Name]
-  FROM [CSIPricingConfigurator].[dbo].[ConfigurationType]
+  FROM [ConfigurationType]
   WHERE Name = @Name
 
 END

@@ -2,8 +2,21 @@
 
 @model List<ConfigurationTypeParameter>
 
-@foreach (var item in Model)
+
+
+@foreach (ConfigurationTypeParameter item in Model)
 {
-<h2>@item.ParameterName</h2>
-    
+    <h2>@item.ParameterName</h2>
+
+    if (!item.IsHasValues)
+    {
+
+        <div class="row">
+            <div class="col-md-12">
+
+                @Html.LabelFor(i => item.ParameterName)
+            </div>
+        </div>
+    }
+
 }

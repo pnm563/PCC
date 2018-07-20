@@ -14,7 +14,7 @@ SELECT [ID]
       ,[Label]
       ,[ConfigurationTypeID]
       ,[ValueType]
-  FROM [CSIPricingConfigurator].[dbo].[ConfigurationTypeOutput]
+  FROM [ConfigurationTypeOutput]
   WHERE CONVERT(NVARCHAR(255), ConfigurationTypeID) = @ConfigurationTypeID
 
 END

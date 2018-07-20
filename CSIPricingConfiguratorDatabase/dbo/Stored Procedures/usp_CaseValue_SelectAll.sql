@@ -5,5 +5,5 @@ SELECT [CaseName]
       ,[Value]
       ,[ActionName]
       ,[ActionType]
-  FROM [CSIPricingConfigurator].[dbo].[CaseValue]
+  FROM [CaseValue]
 END

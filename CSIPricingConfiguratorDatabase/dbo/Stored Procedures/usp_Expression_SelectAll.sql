@@ -4,5 +4,5 @@ BEGIN
 SELECT [Name]
       ,[Code]
       ,[ValueType]
-  FROM [CSIPricingConfigurator].[dbo].[Expression]
+  FROM [Expression]
 END

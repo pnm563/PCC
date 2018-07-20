@@ -12,7 +12,7 @@ SELECT [Question]
       ,[FalseActionName]
       ,[FalseActionType]
       ,[Name]
-  FROM [CSIPricingConfigurator].[dbo].[Condition]
+  FROM [Condition]
 
 
 END

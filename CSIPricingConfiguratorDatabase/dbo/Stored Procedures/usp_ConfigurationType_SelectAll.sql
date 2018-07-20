@@ -8,6 +8,6 @@ SELECT [ID]
       ,[ModifiedBy]
       ,[RowVersion]
       ,[Name]
-  FROM [CSIPricingConfigurator].[dbo].[ConfigurationType]
+  FROM [ConfigurationType]
 
 END

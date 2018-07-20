@@ -11,7 +11,7 @@ SELECT [Name]
       ,[ModifiedBy]
       ,[RowVersion]
       ,[Label]
-  FROM [CSIPricingConfigurator].[dbo].[Parameter]
+  FROM [Parameter]
 
 
 END

@@ -6,6 +6,6 @@ SELECT [CaseName]
       ,[Value]
       ,[ActionName]
       ,[ActionType]
-  FROM [CSIPricingConfigurator].[dbo].[CaseValue]
+  FROM [CaseValue]
   WHERE CaseName = @CaseName
 END

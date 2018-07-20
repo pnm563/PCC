@@ -11,6 +11,6 @@ SELECT [ID]
       ,[ModifiedBy]
       ,[RowVersion]
       ,[ConfigurationTypeID]
-  FROM [CSIPricingConfigurator].[dbo].[Configuration]
+  FROM [Configuration]
 
 END
