@@ -96,8 +96,9 @@ namespace CSIProductConfigurator_front.Controllers
            
             return View();
         }
+        [HttpPost]
 
-        public ActionResult Contact()
+        public ActionResult Contact(ConfigurationView connectedView)
         {
             ViewBag.Message = "Your contact page.";
 

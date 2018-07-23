@@ -6,11 +6,7 @@
 
 @model ConfigurationView
 
-
-
-
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Contact", "Home", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -19,12 +15,21 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
-        @Html.Label("Configuration Type", new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.SelectedConfigurationType, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("configurationTypeDropDown", new SelectList(Model.ConfigurationTypes, "ID", "Name"), "-- Choose configuration type --", htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.SelectedConfigurationType, new SelectList(Model.ConfigurationTypes, "ID", "Name"), "-- Choose configuration type --", htmlAttributes: new { @class = "form-control" })
 
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SelectedCustomerCode, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.SelectedCustomerCode, new SelectList(Model.CustomerCodes), "-- Choose customer code --", htmlAttributes: new { @class = "form-control" })
+
+        </div>
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -45,13 +50,13 @@
 
     <div class="row">
         <div class="col-md-12">
-            @Html.ListBox("populatedJobbie", new SelectList(""));
+            @Html.ListBoxFor(model => model.ListOfStringsPlease, new SelectList(""));
 
         </div>
     </div>
 
     <div class="row">
-        <input type="button" id="Submit" value="PopulateListBox"/>
+        <input type="button" id="Submit" value="PopulateListBox" />
     </div>
 
     <div class="form-group">
@@ -67,14 +72,14 @@
 
     $('[id^=Submit]').on('click', function () {
 
-        $('#populatedJobbie').empty();
+        $('#ListOfStringsPlease').empty();
 
         $('[id$=ParamDropDown] :selected').each(function () {
 
 
 
-            $('#populatedJobbie').append($('<option>', {
-                value: $(this).val(),
+            $('#ListOfStringsPlease').append($('<option>', {
+                value: $(this).val() + "|" + $(this).text(),
                 text: $(this).text()
             }));
 
@@ -85,7 +90,7 @@
     });
 
 
-    $('[id^=configurationTypeDropDown]').on('change', function () {
+    $('[id^=SelectedConfigurationType]').on('change', function () {
         if (this.selectedIndex == 0) {
             return;
         }
