@@ -51,82 +51,99 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+        <div id="configurationTypeContent"></div>
+    </div>
+</div>
+
+<div class="row">
+    <input type="button" id="Submit"/>
+    </div>
+    <script>
+
+        $('[id^=Submit]').on('click', function () {
+            $('[id$=ParamDropDown] :selected').each(function () {
+
+                
+
+                console.log($(this).val() + " " + $(this).text());
+                
+            })
+            
+        });
 
 
-<div id="configurationTypeContent"></div>
-
-<script>
-
-    $('[id^=configurationTypeDropDown]').on('change', function () {
-        if (this.selectedIndex == 0) {
-            return;
-        }
-        var id = this.value;
-        $('#configurationTypeContent').load(
-            "/Home/ConfigurationTypeParameterList/" + id,
-            function (response, status) {
-
+        $('[id^=configurationTypeDropDown]').on('change', function () {
+            if (this.selectedIndex == 0) {
                 return;
-            });
-        return;
-    });
+            }
+            var id = this.value;
+            $('#configurationTypeContent').load(
+                "/Home/ConfigurationTypeParameterList/" + id,
+                function (response, status) {
 
-</script>
+                    return;
+                });
+            return;
+        });
 
-<!--
+    </script>
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body">Number of months</div>
+    <!--
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body">Number of months</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div id="panelMonths" class="panel-body">1</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="monthsSlider"></div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div id="panelMonths" class="panel-body">1</div>
+    <div class="row"></div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body">Cost per month</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div id="panelMonthlyCost" class="panel-body">0</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="monthlyCostSlider"></div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div id="monthsSlider"></div>
-    </div>
-</div>
+    <div class="row"></div>
 
-<div class="row"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body">Total cost</div>
+            </div>
+        </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body">Cost per month</div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div id="panelTotalCost" class="panel-body">0</div>
+            </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div id="panelMonthlyCost" class="panel-body">0</div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div id="monthlyCostSlider"></div>
-    </div>
-</div>
-
-<div class="row"></div>
-
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body">Total cost</div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div id="panelTotalCost" class="panel-body">0</div>
-        </div>
-    </div>
-</div>
-
--->
+    -->
