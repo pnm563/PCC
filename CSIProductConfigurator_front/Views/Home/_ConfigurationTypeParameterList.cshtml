@@ -7,14 +7,11 @@
 @foreach (ConfigurationTypeParameter item in Model)
 {
 
-    <div class="row">
-        <div class="col-md-6">
+  <div class="form-group">
+      @Html.Label(item.ParameterName, new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
 
-            <h2>@item.ParameterName</h2>
-
-        </div>
-    
-        <div class="col-md-6">
+      
 
             @if (item.IsHasValues)
             {
@@ -22,10 +19,11 @@
             }
             else
             {
-                <text>>free text baby</text>
+                @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control" } })
             }
         </div>
-    </div>
+      </div>
+    
     
 
 

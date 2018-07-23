@@ -6,144 +6,159 @@
 
 @model ConfigurationView
 
-<!--
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.Label("Configuration Type", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("configurationTypeDropDown", new SelectList(Model.ConfigurationTypes, "ID", "Name"), "-- Choose configuration type --", htmlAttributes: new { @class = "form-control" })
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div id="configurationTypeContent"></div>
+
+    <div class="row hidden">
+        <div class="col-md-12">
+            @Html.ListBox("populatedJobbie", new SelectList(""));
+
+        </div>
+    </div>
+
+    <!--div class="row">
+        <input type="button" id="Submit" />
+    </div-->
+
+    <!--div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div-->
+
 </div>
--->
+}
+
+<script>
+
+    $('[id^=Submit]').on('click', function () {
+
+        $('#populatedJobbie').empty();
+
+        $('[id$=ParamDropDown] :selected').each(function () {
 
 
 
-<hr />
+            $('#populatedJobbie').append($('<option>', {
+                value: $(this).val(),
+                text: $(this).text()
+            }));
+
+            //console.log($(this).val() + " " + $(this).text());
+
+        })
+
+    });
 
 
-<div class="row">
-    <div class="col-md-12">
-
-
-        @Html.DropDownList("configurationTypeDropDown", new SelectList(Model.ConfigurationTypes, "ID", "Name"), "-- Choose configuration type --", htmlAttributes: new { @class = "form-control" })
-
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        @Html.LabelFor(m => m.Name)
-
-    </div>
-    <div class="col-md-8">
-        @Html.TextBoxFor(m => m.Name)
-
-    </div>
-
-    <div class="col-md-4">
-        @Html.LabelFor(m => m.Description)
-
-    </div>
-
-
-
-    <div class="col-md-8">
-        @Html.TextBoxFor(m => m.Description)
-
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div id="configurationTypeContent"></div>
-    </div>
-</div>
-
-<div class="row">
-    <input type="button" id="Submit"/>
-    </div>
-    <script>
-
-        $('[id^=Submit]').on('click', function () {
-            $('[id$=ParamDropDown] :selected').each(function () {
-
-                
-
-                console.log($(this).val() + " " + $(this).text());
-                
-            })
-            
-        });
-
-
-        $('[id^=configurationTypeDropDown]').on('change', function () {
-            if (this.selectedIndex == 0) {
-                return;
-            }
-            var id = this.value;
-            $('#configurationTypeContent').load(
-                "/Home/ConfigurationTypeParameterList/" + id,
-                function (response, status) {
-
-                    return;
-                });
+    $('[id^=configurationTypeDropDown]').on('change', function () {
+        if (this.selectedIndex == 0) {
             return;
-        });
+        }
+        var id = this.value;
+        $('#configurationTypeContent').load(
+            "/Home/ConfigurationTypeParameterList/" + id,
+            function (response, status) {
 
-    </script>
+                return;
+            });
+        return;
+    });
 
-    <!--
+</script>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body">Number of months</div>
-            </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div id="panelMonths" class="panel-body">1</div>
-            </div>
-        </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<!--
 
-        <div class="col-md-4">
-            <div id="monthsSlider"></div>
-        </div>
-    </div>
-
-    <div class="row"></div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body">Cost per month</div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div id="panelMonthlyCost" class="panel-body">0</div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div id="monthlyCostSlider"></div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-body">Number of months</div>
         </div>
     </div>
 
-    <div class="row"></div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body">Total cost</div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div id="panelTotalCost" class="panel-body">0</div>
-            </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div id="panelMonths" class="panel-body">1</div>
         </div>
     </div>
 
-    -->
+    <div class="col-md-4">
+        <div id="monthsSlider"></div>
+    </div>
+</div>
+
+<div class="row"></div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-body">Cost per month</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div id="panelMonthlyCost" class="panel-body">0</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div id="monthlyCostSlider"></div>
+    </div>
+</div>
+
+<div class="row"></div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-body">Total cost</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div id="panelTotalCost" class="panel-body">0</div>
+        </div>
+    </div>
+</div>
+
+-->

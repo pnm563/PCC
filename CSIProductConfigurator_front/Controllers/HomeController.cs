@@ -91,10 +91,9 @@ namespace CSIProductConfigurator_front.Controllers
             return PartialView("_ConfigurationTypeParameterList", cTypeParams);
         }
 
-        public ActionResult About()
+        public ActionResult Regarder()
         {
-            ViewBag.Message = "Your application description page.";
-
+           
             return View();
         }
 
