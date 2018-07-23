@@ -11,17 +11,18 @@
       @Html.Label(item.ParameterName, new { @class = "control-label col-md-2" })
       <div class="col-md-10">
 
-      
 
-            @if (item.IsHasValues)
-            {
-                @Html.DropDownList(item.ParameterName + "ParamDropDown", new SelectList(item.ParameterValues, "ParameterID", "Label"), "-- Please choose --", htmlAttributes: new { @class = "form-control" })
-            }
-            else
-            {
-                @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control" } })
-            }
-        </div>
+
+          @if (item.IsHasValues)
+          {
+              @Html.DropDownList(item.ParameterName + "ParamDropDown", new SelectList(item.ParameterValues, "ParameterID", "Label"), "-- Please choose --", htmlAttributes: new { @class = "form-control" })
+          }
+          else
+          {
+              
+              @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control" } })
+         }
+          </div>
       </div>
     
     
