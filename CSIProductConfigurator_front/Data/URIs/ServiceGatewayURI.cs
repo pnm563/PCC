@@ -27,5 +27,17 @@ namespace CSIProductConfigurator_front.Data.URIs
 
         #endregion
 
+        #region ConfigurationDetail
+
+        public const String ConfigurationDetailURI = "API/ConfigurationDetail";
+
+        #endregion
+
+        #region Parameter
+
+        public const String ParameterURI = "API/Parameter";
+
+        #endregion
+
     }
 }

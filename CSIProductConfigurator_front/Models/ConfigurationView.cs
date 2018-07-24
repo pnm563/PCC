@@ -24,7 +24,7 @@ namespace CSIProductConfigurator_front.Models
 
         public List<ConfigurationParameterValue> ConfigurationParameterValues { get; set; }
 
-        public List<String> ListOfStringsPlease { get; set; }
+        public List<String> ListOfConfigurationParameterValues { get; set; }
     }
 
 

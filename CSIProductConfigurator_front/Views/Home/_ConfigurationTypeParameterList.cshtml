@@ -20,7 +20,7 @@
           else
           {
               
-              @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control" } })
+              @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control", @id = item.ParameterID } })
          }
           </div>
       </div>

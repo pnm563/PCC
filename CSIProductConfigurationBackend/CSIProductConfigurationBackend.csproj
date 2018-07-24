@@ -198,6 +198,7 @@
     <Compile Include="Controllers\ConfigurationTypeOutputController.cs" />
     <Compile Include="Controllers\ConfigurationTypeParameterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\ParameterValueController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="CSIProductConfiguration\CaseContext.cs" />

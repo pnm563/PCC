@@ -50,7 +50,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            @Html.ListBoxFor(model => model.ListOfStringsPlease, new SelectList(""));
+            @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""));
 
         </div>
     </div>
@@ -72,20 +72,30 @@
 
     $('[id^=Submit]').on('click', function () {
 
-        $('#ListOfStringsPlease').empty();
+        $('#ListOfConfigurationParameterValues').empty();
 
         $('[id$=ParamDropDown] :selected').each(function () {
 
-
-
-            $('#ListOfStringsPlease').append($('<option>', {
+            $('#ListOfConfigurationParameterValues').append($('<option>', {
                 value: $(this).val() + "|" + $(this).text(),
                 text: $(this).text()
             }));
 
             //console.log($(this).val() + " " + $(this).text());
 
-        })
+        });
+
+        $('[name$=Editor]').each(function () {
+
+            $('#ListOfConfigurationParameterValues').append($('<option>', {
+                value: $(this).attr("id") + "|" + $(this).val(),
+                text: $(this).val()
+            } ));
+
+            //console.log($(this).val() + " " + $(this).text() + " " + $(this).attr("name"));
+
+        });
+
 
     });
 
