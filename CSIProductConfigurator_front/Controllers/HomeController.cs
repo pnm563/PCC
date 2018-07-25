@@ -46,7 +46,7 @@ namespace CSIProductConfigurator_front.Controllers
         public ActionResult ConfigurationTypeParameterList(String id)
         {
 
-            //Returns a partial view with all parameters for that configuration type
+            //Returns a partial view with all dynamic parameters for selected configuration type
             //A <div> is populated via a .load Ajax call to this controller method
 
 

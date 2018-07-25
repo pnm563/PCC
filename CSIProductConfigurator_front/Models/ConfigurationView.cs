@@ -13,16 +13,22 @@ namespace CSIProductConfigurator_front.Models
         [Required]
         public String Name { get; set; }
         public String Description { get; set; }
-       
+
         public List<String> CustomerCodes { get; set; }
         public List<ConfigurationType> ConfigurationTypes { get; set; }
 
-        [Display(Name="Customer Code")]
+        [Display(Name = "Customer Code")]
         public String SelectedCustomerCode { get; set; }
         [Display(Name = "Configuration Type")]
         public String SelectedConfigurationType { get; set; }
 
-        public List<ConfigurationParameterValue> ConfigurationParameterValues { get; set; }
+        public int JustToGetViewInt  {get; set;}
+        public float JustToGetViewFloat {get; set;}
+        public DateTime JustToGetViewDateTime { get; set; }
+        public bool JustToGetViewBool { get; set; }
+
+
+public List<ConfigurationParameterValue> ConfigurationParameterValues { get; set; }
 
         public List<String> ListOfConfigurationParameterValues { get; set; }
     }
