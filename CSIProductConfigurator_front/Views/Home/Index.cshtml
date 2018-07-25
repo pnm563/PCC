@@ -6,7 +6,7 @@
 
 @model ConfigurationView
 
-@using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+@using (Html.BeginForm("Contact", "Home", FormMethod.Post, htmlAttributes: new { @id = "MainForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -108,7 +108,11 @@
         $('#configurationTypeContent').load(
             "/Home/ConfigurationTypeParameterList/" + id,
             function (response, status) {
+                var form = $('#MainForm')
+                    .removeData("validator") /* added by the raw jquery.validate plugin */
+                    .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
 
+                $.validator.unobtrusive.parse(form);
                 return;
             });
         return;
