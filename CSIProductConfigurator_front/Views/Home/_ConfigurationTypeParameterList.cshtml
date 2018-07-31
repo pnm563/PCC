@@ -2,32 +2,47 @@
 
 @model List<ConfigurationTypeParameter>
 
-
-
-    @foreach (ConfigurationTypeParameter item in Model)
-    {
-
-        <div class="form-group">
-            @Html.Label(item.ParameterName, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+@{int i = 1; }
 
 
 
-                @if (item.IsHasValues)
-                {
-                    @Html.DropDownList(item.ParameterName + "ParamDropDown", new SelectList(item.ParameterValues, "ParameterID", "Label"), "-- Please choose --", htmlAttributes: new { @class = "form-control" })
-                }
-                else
-                {
-
-                    @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control", @id = item.ParameterName + "Editor", @data_val = "true", @data_val_required = "Gimme" } })
-                    @Html.ValidationMessage(item.ParameterName + "Editor", htmlAttributes: new { @class = "text-danger" })
-                }
-            </div>
-        </div>
+@foreach (ConfigurationTypeParameter item in Model)
+{
 
 
 
 
-    }
+
+<div class="form-group">
+
+    @Html.Label(item.ParameterName, new { @class = "control-label col-md-2" })
+
+
+
+
+    <div class="col-md-4">
+
+        @if (item.IsHasValues)
+        {
+            @Html.DropDownList(item.ParameterName + "ParamDropDown", new SelectList(item.ParameterValues, "ParameterID", "Label"), "-- Please choose --", htmlAttributes: new { @class = "form-control" })
+        }
+        else
+        {
+
+            @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control", @id = item.ParameterName + "Editor", @data_val = "true", @data_val_required = "Gimme" } })
+            @Html.ValidationMessage(item.ParameterName + "Editor", htmlAttributes: new { @class = "text-danger" })
+        }
+    </div>
+</div>
+
+
+
+
+
+
+
+
+        i++;
+
+        }
     

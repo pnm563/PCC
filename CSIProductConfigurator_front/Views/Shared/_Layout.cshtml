@@ -11,15 +11,29 @@
     @RenderSection("scripts", required: false)
 </head>
 <body>
-
-     
     <div class="container">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>Footer goes here</p>
-        </footer>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="~/Images/CSI.png" />
+                            </div>
+                            <div class="col-md-4">
+                                <h2>Project CSISC (seasick)</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
+
+
+    @RenderBody()
+
 
 
 </body>
