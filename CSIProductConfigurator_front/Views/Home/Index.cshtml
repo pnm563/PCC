@@ -9,68 +9,97 @@
 @using (Html.BeginForm("Contact", "Home", FormMethod.Post, htmlAttributes: new { @id = "MainForm" }))
 {
     @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="container">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            Please choose...
+                        </h4>
+                    </div>
+                    <div class="panel-body">
 
-<div class="form-horizontal">
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.SelectedConfigurationType, new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.SelectedConfigurationType, new SelectList(Model.ConfigurationTypes, "ID", "Name"), "-- Choose configuration type --", htmlAttributes: new { @class = "form-control" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SelectedConfigurationType, new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(model => model.SelectedConfigurationType, new SelectList(Model.ConfigurationTypes, "ID", "Name"), "-- Choose configuration type --", htmlAttributes: new { @class = "form-control" })
 
+                            </div>
+
+                            @Html.LabelFor(model => model.SelectedCustomerCode, new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(model => model.SelectedCustomerCode, new SelectList(Model.CustomerCodes), "-- Choose customer code --", htmlAttributes: new { @class = "form-control" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            Please choose...
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div id="configurationTypeContent"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""));
+
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="button" id="Submit" value="PopulateListBox" />
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.SelectedCustomerCode, new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.SelectedCustomerCode, new SelectList(Model.CustomerCodes), "-- Choose customer code --", htmlAttributes: new { @class = "form-control" })
-
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div id="configurationTypeContent"></div>
-
-    <div class="row">
-        <div class="col-md-12">
-            @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""));
-
-        </div>
-    </div>
-
-    <div class="row">
-        <input type="button" id="Submit" value="PopulateListBox" />
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-
-</div>
 }
 
 <script>
 
     $('[id^=Submit]').on('click', function () {
+
+
 
         $('#ListOfConfigurationParameterValues').empty();
 
@@ -90,7 +119,7 @@
             $('#ListOfConfigurationParameterValues').append($('<option>', {
                 value: $(this).attr("id") + "|" + $(this).val(),
                 text: $(this).val()
-            } ));
+            }));
 
             //console.log($(this).val() + " " + $(this).text() + " " + $(this).attr("name"));
 
@@ -100,21 +129,61 @@
     });
 
 
-    $('[id^=SelectedConfigurationType]').on('change', function () {
-        if (this.selectedIndex == 0) {
-            return;
-        }
-        var id = this.value;
+    $('#collapse1').on('hidden.bs.collapse', function () {
+
+        var id = $('[id^=SelectedConfigurationType]').val();
+
         $('#configurationTypeContent').load(
             "/Home/ConfigurationTypeParameterList/" + id,
             function (response, status) {
+
+
                 var form = $('#MainForm')
                     .removeData("validator") /* added by the raw jquery.validate plugin */
                     .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
 
                 $.validator.unobtrusive.parse(form);
+                $('#collapse1').collapse('show');
                 return;
+
             });
+    });
+
+
+    $('[id^=SelectedConfigurationType]').on('change', function (e) {
+
+        if (e.currentTarget.selectedIndex == 0) {
+
+            return;
+        }
+
+        var isExpanded = $('#collapse1').attr("aria-expanded");
+
+
+        if (isExpanded == 'true') {
+
+            $('#collapse1').collapse('hide');
+        } else {
+
+            $('#configurationTypeContent').load(
+                "/Home/ConfigurationTypeParameterList/" + e.currentTarget.value,
+                function (response, status) {
+
+
+                    var form = $('#MainForm')
+                        .removeData("validator") /* added by the raw jquery.validate plugin */
+                        .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
+
+                    $.validator.unobtrusive.parse(form);
+                    $('#collapse1').collapse('show');
+                    return;
+
+                });
+        }
+        //alert('going to show');
+
+
+
         return;
     });
 
