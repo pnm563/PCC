@@ -33,3 +33,7 @@ textarea {
     background-color: #bbd7ee;
 
 }
+
+.slider.slider-horizontal {
+    width: 175px; /* sample value - set it as you like*/
+}

@@ -4,7 +4,7 @@
 @model List<ConfigurationTypeParameter>
 
 @{
-    List<ConfigurationTypeParameter> sortedList = Model.OrderBy(a => a.ParameterType1).ThenBy(b=>b.ParameterName).ToList();
+    List<ConfigurationTypeParameter> sortedList = Model.OrderBy(a => a.ParameterName).ToList();
     int i = 1;
 }
 
@@ -13,7 +13,7 @@
 
     if (i % 2 == 1)
     {
-        @Html.Raw("<div class=\"form row\">")
+        @Html.Raw("<div class=\"row\">")
     }
 
     <div class="form-group col-md-6">
@@ -44,9 +44,20 @@
             {
                 if (item.ParameterType1 == AttributeType.IntegerType)
                 {
-                    <div class="col-md-8">
-                        <div id="@(item.ParameterName)Slider"></div>
-                    </div>
+
+
+
+
+                    
+                        <div class="col-md-4">
+
+                            @Html.Editor(item.ParameterName + "SliderBox", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        </div>
+
+                        <div class="col-md-8">
+
+                            <div id="@(item.ParameterName)Slider"></div>
+                        </div>
                     
                 }
                 else
