@@ -24,14 +24,14 @@
 
             @if (item.IsHasValues)
             {
-                if (item.ParameterValues.Count > 2)
+                if (item.ParameterValues.Count > 3)
                 {
                     @Html.DropDownList(item.ParameterName + "ParamDropDown", new SelectList(item.ParameterValues, "ParameterID", "Label"), "-- Please choose --", htmlAttributes: new { @class = "form-control" })
                 }
                 else
                 {
                     <div class="btn-group-justified btn-group-toggle" data-toggle="buttons">
-                        @foreach (ParameterValue paramVal in item.ParameterValues)
+                        @foreach (ParameterValue paramVal in item.ParameterValues.OrderBy(a=>a.Value).ToList())
                         {
                             <label class="btn btn-default btn-block">
                                 <input type="radio" name="@item.ParameterName" id="@paramVal.Value" autocomplete="off">@paramVal.Value
@@ -45,25 +45,36 @@
                 if (item.ParameterType1 == AttributeType.IntegerType)
                 {
 
+                    <div class="col-md-4">
 
+                        @Html.Editor(item.ParameterName + "SliderBox", new { htmlAttributes = new { @class = "form-control", @value = "0" } })
+                    </div>
 
+                    <div class="col-md-8">
 
-                    
-                        <div class="col-md-4">
+                        <div id="@(item.ParameterName)Slider"></div>
+                    </div>
 
-                            @Html.Editor(item.ParameterName + "SliderBox", new { htmlAttributes = new { @class = "form-control", @value="0" } })
-                        </div>
-
-                        <div class="col-md-8">
-
-                            <div id="@(item.ParameterName)Slider"></div>
-                        </div>
-                    
                 }
                 else
                 {
-                    @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control", @id = item.ParameterName + "Editor", @data_val = "true", @data_val_required = "Gimme" } })
-                    @Html.ValidationMessage(item.ParameterName + "Editor", htmlAttributes: new { @class = "text-danger" })
+                    if (item.ParameterType1 == AttributeType.BooleanType)
+                    {
+                        <div class="btn-group-justified btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-default btn-block">
+                                <input type="radio" name="@item.ParameterName" id="True" autocomplete="off">True
+                            </label>
+                            <label class="btn btn-default btn-block">
+                                <input type="radio" name="@item.ParameterName" id="False" autocomplete="off">False
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+
+                        @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control", @id = item.ParameterName + "Editor", @data_val = "true", @data_val_required = "Gimme" } })
+                        @Html.ValidationMessage(item.ParameterName + "Editor", htmlAttributes: new { @class = "text-danger" })
+                    }
                 }
             }
         </div>

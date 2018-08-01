@@ -62,7 +62,7 @@ function update(slider) {
 
     var totalCost = (CPW * Tier1);
 
-    alert(CPW + Tier1 + totalCost);
+    console.log(CPW + " " + Tier1 + " " + totalCost);
 
     /*
     if (whichSlider == 'monthsSlider') {
