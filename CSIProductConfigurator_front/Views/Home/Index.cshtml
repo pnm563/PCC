@@ -139,7 +139,7 @@
                 .removeData("unobtrusiveValidation");
             $.validator.unobtrusive.parse(form);                                       // Clear the form validation and parse again. Necessary to appply validation to new dynamic items
             $('#collapse1').collapse('show');                                         // We can now expand the panel and show the parameter list
-            initMonthlyCostSlider();
+            initSliders();
             return;
         });
     });
@@ -163,7 +163,7 @@
                     .removeData("unobtrusiveValidation");
                 $.validator.unobtrusive.parse(form);
                 $('#collapse1').collapse('show');
-                initMonthlyCostSlider();
+                initSliders();
                 return;
             });
         }

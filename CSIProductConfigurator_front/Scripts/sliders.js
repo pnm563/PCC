@@ -1,6 +1,6 @@
-﻿function initMonthlyCostSlider()
+﻿function initSliders()
 {
-    $("#monthlyCostSlider").slider({
+    $("#CPWSlider").slider({
         value: 0,
         min: 0,
         max: 500,
@@ -10,6 +10,30 @@
             return "£" + value;
         }
     });
+
+    $("#Tier1StorageSlider").slider({
+        value: 0,
+        min: 0,
+        max: 1500,
+        step: 1,
+        tooltip: 'always',
+        formatter: function (value) {
+            return "$" + value;
+        }
+    });
+
+    $("#Tier2StorageSlider").slider({
+        value: 0,
+        min: 0,
+        max: 5000,
+        step: 50,
+        tooltip: 'always',
+        formatter: function (value) {
+            return "€" + value;
+        }
+    });
+
+    
 
 };
 
