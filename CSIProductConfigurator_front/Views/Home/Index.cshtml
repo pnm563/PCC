@@ -107,66 +107,63 @@
 
 <script>
 
-    $('[id^=Submit]').on('click', function ()
-    {
+    $('[id^=Submit]').on('click', function () {
         $('#ListOfConfigurationParameterValues').empty();                               // Clear the contents of parameter list box known as ListOfConfigurationParameterValues
 
         $('[id$=ParamDropDown] :selected').each(function ()                             // Selected value for each item ending with ParamDropDown, add to ListOfConfigurationParameterValues
         {
             $('#ListOfConfigurationParameterValues').append($('<option>',
-            {
-                value: $(this).val() + "|" + $(this).text(), text: $(this).text()       // Hack to pass parameter id and value through to the back end. String will be split later
-            }));
+                {
+                    value: $(this).val() + "|" + $(this).text(), text: $(this).text()       // Hack to pass parameter id and value through to the back end. String will be split later
+                }));
         });
 
         $('[name$=Editor]').each(function ()                                            // For each free text editor field, add to ListOfConfigurationParameterValues
         {
             $('#ListOfConfigurationParameterValues').append($('<option>',
-            {
-                value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
-            }));
+                {
+                    value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
+                }));
         });
     });                                                                                 // End result is a list box containing all parameter IDs and their values
 
 
     $('#collapse1').on('hidden.bs.collapse', function ()                                // Once the collapsible panel has finished collapsing
-    {                              
+    {
         var id = $('[id^=SelectedConfigurationType]').val();                            // Find which configuration we need to display parameters for
 
         $('#configurationTypeContent').load("/Home/ConfigurationTypeParameterList/" + id, function (response, status)     // Populate the div with the parameter list
         {
             var form = $('#MainForm')
-                .removeData("validator") 
-                .removeData("unobtrusiveValidation"); 
+                .removeData("validator")
+                .removeData("unobtrusiveValidation");
             $.validator.unobtrusive.parse(form);                                       // Clear the form validation and parse again. Necessary to appply validation to new dynamic items
             $('#collapse1').collapse('show');                                         // We can now expand the panel and show the parameter list
-            return; 
+            initMonthlyCostSlider();
+            return;
         });
     });
 
 
     $('[id^=SelectedConfigurationType]').on('change', function (e)                    // Contents of the dropdown has changed, a configuration has been selected
     {
-        if (e.currentTarget.selectedIndex == 0)
-        {
+        if (e.currentTarget.selectedIndex == 0) {
             return;                                                                     // Do nothing if first item (prompt message) selected
         }
 
         var isExpanded = $('#collapse1').attr("aria-expanded");                         // Is the collapsible expanded or not?
 
-        if (isExpanded == 'true')
-        {
+        if (isExpanded == 'true') {
             $('#collapse1').collapse('hide');                                           // If it is, then hide it. Execution then passes to the hidden.bs.collapse event above.
         }
-        else
-        {                                                                               // The collapsible is not expanded, so we can safely load the div
-            $('#configurationTypeContent').load("/Home/ConfigurationTypeParameterList/" + e.currentTarget.value, function (response, status)
-            {
-                var form = $('#MainForm')                                               // Note repeated code from above. 
-                    .removeData("validator") 
-                    .removeData("unobtrusiveValidation");  
+        else {                                                                               // The collapsible is not expanded, so we can safely load the div
+            $('#configurationTypeContent').load("/Home/ConfigurationTypeParameterList/" + e.currentTarget.value, function (response, status) {
+                var form = $('#MainForm')                                               // Note repeated code from above.
+                    .removeData("validator")
+                    .removeData("unobtrusiveValidation");
                 $.validator.unobtrusive.parse(form);
                 $('#collapse1').collapse('show');
+                initMonthlyCostSlider();
                 return;
             });
         }
@@ -179,60 +176,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-<!--
-
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body">Number of months</div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div id="panelMonths" class="panel-body">1</div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div id="monthsSlider"></div>
-    </div>
-</div>
-
-<div class="row"></div>
-
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body">Cost per month</div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div id="panelMonthlyCost" class="panel-body">0</div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div id="monthlyCostSlider"></div>
-    </div>
-</div>
-
-<div class="row"></div>
-
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body">Total cost</div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div id="panelTotalCost" class="panel-body">0</div>
-        </div>
-    </div>
-</div>
-
--->

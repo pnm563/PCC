@@ -1,4 +1,5 @@
 ﻿@using CSIProductConfigurationCommon.Models;
+@using CSIProductConfigurationCommon.Enums;
 
 @model List<ConfigurationTypeParameter>
 
@@ -12,31 +13,60 @@
         @Html.Raw("<div class=\"row\">")
     }
 
-
     <div class="form-group col-md-6">
 
-
         @Html.Label(item.ParameterName, new { @class = "control-label col-md-4" })
-
-
-
 
         <div class="col-md-8">
 
             @if (item.IsHasValues)
             {
-                @Html.DropDownList(item.ParameterName + "ParamDropDown", new SelectList(item.ParameterValues, "ParameterID", "Label"), "-- Please choose --", htmlAttributes: new { @class = "form-control" })
+
+                if (item.ParameterValues.Count > 2)
+                {
+
+                    @Html.DropDownList(item.ParameterName + "ParamDropDown", new SelectList(item.ParameterValues, "ParameterID", "Label"), "-- Please choose --", htmlAttributes: new { @class = "form-control" })
+
+                }
+                else
+                {
+
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                        @foreach (ParameterValue paramVal in item.ParameterValues)
+                        {
+
+                            <label class="btn btn-default">
+                                <input type="radio" name="@item.ParameterName" id="@paramVal.Value" autocomplete="off">@paramVal.Value
+                            </label>
+
+
+                        }
+
+                    </div>
+
+                }
+
             }
+
             else
             {
+                if (item.ParameterType1 == AttributeType.IntegerType)
+                {
 
-                @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control", @id = item.ParameterName + "Editor", @data_val = "true", @data_val_required = "Gimme" } })
-                @Html.ValidationMessage(item.ParameterName + "Editor", htmlAttributes: new { @class = "text-danger" })
+                    <div class="col-md-4">
+                        <div id="monthlyCostSlider"></div>
+                    </div>
+
+                }
+                else
+                {
+
+                    @Html.Editor(item.ParameterName + "Editor", new { htmlAttributes = new { @class = "form-control", @id = item.ParameterName + "Editor", @data_val = "true", @data_val_required = "Gimme" } })
+                    @Html.ValidationMessage(item.ParameterName + "Editor", htmlAttributes: new { @class = "text-danger" })
+                }
             }
-
         </div>
-
-
     </div>
 
     if (i % 2 == 0 || (i % 2 == 1 && i == Model.Count()))

@@ -1,4 +1,19 @@
-﻿$(document).ready(function() {
+﻿function initMonthlyCostSlider()
+{
+    $("#monthlyCostSlider").slider({
+        value: 0,
+        min: 0,
+        max: 500,
+        step: 1,
+        tooltip: 'always',
+        formatter: function (value) {
+            return "£" + value;
+        }
+    });
+
+};
+
+$(document).ready(function () {
     $("#monthsSlider").slider({
         value: 1,
         min: 1,
