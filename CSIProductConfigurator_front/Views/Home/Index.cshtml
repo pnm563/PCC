@@ -19,29 +19,23 @@
                         </h4>
                     </div>
                     <div class="panel-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="row">
-
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.SelectedConfigurationType, new { @class = "control-label col-md-4" })
                                 <div class="col-md-8">
                                     @Html.DropDownListFor(model => model.SelectedConfigurationType, new SelectList(Model.ConfigurationTypes, "ID", "Name"), "-- Choose configuration type --", htmlAttributes: new { @class = "form-control" })
-
                                 </div>
                             </div>
-
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.SelectedCustomerCode, new { @class = "control-label col-md-4" })
                                 <div class="col-md-8">
                                     @Html.DropDownListFor(model => model.SelectedCustomerCode, new SelectList(Model.CustomerCodes), "-- Choose customer code --", htmlAttributes: new { @class = "form-control" })
-
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
                                 <div class="col-md-8">
@@ -94,7 +88,6 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""));
-
                                 </div>
                                 <div class="col-md-4">
                                     <input type="button" id="Submit" value="PopulateListBox" />
@@ -105,110 +98,78 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
-
-
-
     </div>
-
-
-
 
 }
 
 <script>
 
-    $('[id^=Submit]').on('click', function () {
+    $('[id^=Submit]').on('click', function ()
+    {
+        $('#ListOfConfigurationParameterValues').empty();                               // Clear the contents of parameter list box known as ListOfConfigurationParameterValues
 
-
-
-        $('#ListOfConfigurationParameterValues').empty();
-
-        $('[id$=ParamDropDown] :selected').each(function () {
-
-            $('#ListOfConfigurationParameterValues').append($('<option>', {
-                value: $(this).val() + "|" + $(this).text(),
-                text: $(this).text()
+        $('[id$=ParamDropDown] :selected').each(function ()                             // Selected value for each item ending with ParamDropDown, add to ListOfConfigurationParameterValues
+        {
+            $('#ListOfConfigurationParameterValues').append($('<option>',
+            {
+                value: $(this).val() + "|" + $(this).text(), text: $(this).text()       // Hack to pass parameter id and value through to the back end. String will be split later
             }));
-
-            //console.log($(this).val() + " " + $(this).text());
-
         });
 
-        $('[name$=Editor]').each(function () {
-
-            $('#ListOfConfigurationParameterValues').append($('<option>', {
-                value: $(this).attr("id") + "|" + $(this).val(),
-                text: $(this).val()
+        $('[name$=Editor]').each(function ()                                            // For each free text editor field, add to ListOfConfigurationParameterValues
+        {
+            $('#ListOfConfigurationParameterValues').append($('<option>',
+            {
+                value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
             }));
-
-            //console.log($(this).val() + " " + $(this).text() + " " + $(this).attr("name"));
-
         });
+    });                                                                                 // End result is a list box containing all parameter IDs and their values
 
 
+    $('#collapse1').on('hidden.bs.collapse', function ()                                // Once the collapsible panel has finished collapsing
+    {                              
+        var id = $('[id^=SelectedConfigurationType]').val();                            // Find which configuration we need to display parameters for
+
+        $('#configurationTypeContent').load("/Home/ConfigurationTypeParameterList/" + id, function (response, status)     // Populate the div with the parameter list
+        {
+            var form = $('#MainForm')
+                .removeData("validator") 
+                .removeData("unobtrusiveValidation"); 
+            $.validator.unobtrusive.parse(form);                                       // Clear the form validation and parse again. Necessary to appply validation to new dynamic items
+            $('#collapse1').collapse('show');                                         // We can now expand the panel and show the parameter list
+            return; 
+        });
     });
 
 
-    $('#collapse1').on('hidden.bs.collapse', function () {
+    $('[id^=SelectedConfigurationType]').on('change', function (e)                    // Contents of the dropdown has changed, a configuration has been selected
+    {
+        if (e.currentTarget.selectedIndex == 0)
+        {
+            return;                                                                     // Do nothing if first item (prompt message) selected
+        }
 
-        var id = $('[id^=SelectedConfigurationType]').val();
+        var isExpanded = $('#collapse1').attr("aria-expanded");                         // Is the collapsible expanded or not?
 
-        $('#configurationTypeContent').load(
-            "/Home/ConfigurationTypeParameterList/" + id,
-            function (response, status) {
-
-
-                var form = $('#MainForm')
-                    .removeData("validator") /* added by the raw jquery.validate plugin */
-                    .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
-
+        if (isExpanded == 'true')
+        {
+            $('#collapse1').collapse('hide');                                           // If it is, then hide it. Execution then passes to the hidden.bs.collapse event above.
+        }
+        else
+        {                                                                               // The collapsible is not expanded, so we can safely load the div
+            $('#configurationTypeContent').load("/Home/ConfigurationTypeParameterList/" + e.currentTarget.value, function (response, status)
+            {
+                var form = $('#MainForm')                                               // Note repeated code from above. 
+                    .removeData("validator") 
+                    .removeData("unobtrusiveValidation");  
                 $.validator.unobtrusive.parse(form);
                 $('#collapse1').collapse('show');
                 return;
-
             });
-    });
-
-
-    $('[id^=SelectedConfigurationType]').on('change', function (e) {
-
-        if (e.currentTarget.selectedIndex == 0) {
-
-            return;
         }
-
-        var isExpanded = $('#collapse1').attr("aria-expanded");
-
-
-        if (isExpanded == 'true') {
-
-            $('#collapse1').collapse('hide');
-        } else {
-
-            $('#configurationTypeContent').load(
-                "/Home/ConfigurationTypeParameterList/" + e.currentTarget.value,
-                function (response, status) {
-
-
-                    var form = $('#MainForm')
-                        .removeData("validator") /* added by the raw jquery.validate plugin */
-                        .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
-
-                    $.validator.unobtrusive.parse(form);
-                    $('#collapse1').collapse('show');
-                    return;
-
-                });
-        }
-        //alert('going to show');
-
-
-
         return;
     });
 
