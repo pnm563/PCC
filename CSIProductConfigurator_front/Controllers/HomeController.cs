@@ -142,7 +142,8 @@ namespace CSIProductConfigurator_front.Controllers
             {
                 CustomerCode = cView.SelectedCustomerCode,
                 ConfigurationTypeID = cView.SelectedConfigurationType,
-                Name = "Test1",
+                Name = cView.Name,
+                Description = cView.Description,
                 Id = Guid.NewGuid().ToString(),
                 ConfigurationParameterValues = new List<ConfigurationParameterValue>()
             };

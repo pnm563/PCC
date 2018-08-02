@@ -128,14 +128,10 @@
 
         $(".btn.active").each(function ()
         {
-            console.log("obbers %o",this);
-
-            console.log(this.control.id + this.control.name);
-
-            
+                 
             $('#ListOfConfigurationParameterValues').append($('<option>',
                 {
-                    value: this.control.id + "|" + this.control.name, text: this.innerText    // Hack to pass parameter id and value through to the back end. String will be split later
+                    value: this.control.id + "|" + this.innerText, text: this.innerText    // Hack to pass parameter id and value through to the back end. String will be split later
                 }));
                 
         });
