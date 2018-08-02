@@ -15,7 +15,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            Panel heading goes here
+                            Strongly typed model properties
                         </h4>
                     </div>
                     <div class="panel-body">
@@ -61,7 +61,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            Panel heading goes here
+                            Dynamic properties based on configuration
                         </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
@@ -79,21 +79,18 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            Panel heading goes here
+                            Submit button
                         </h4>
                     </div>
 
                     <div class="panel-body">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-4">
-                                    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""))
+                                <div class="col-md-11">
+                                    <input type="submit" value="Calculate" class="btn btn-default" />
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="button" id="Submit" value="PopulateListBox" />
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="submit" value="Create" class="btn btn-default" />
+                                <div class="col-md-1">
+                                    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""), htmlAttributes: new { @hidden = "hidden" })
                                 </div>
                             </div>
                         </div>
@@ -107,7 +104,7 @@
 
 <script>
 
-    $('[id^=Submit]').on('click', function () {
+    $('#MainForm').submit(function () {
         $('#ListOfConfigurationParameterValues').empty();                               // Clear the contents of parameter list box known as ListOfConfigurationParameterValues
 
         $('[id$=ParamDropDown] :selected').each(function ()                             // Selected value for each item ending with ParamDropDown, add to ListOfConfigurationParameterValues
@@ -143,6 +140,8 @@
                     value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
                 }));
         });
+
+        $("#ListOfConfigurationParameterValues option").prop("selected", true);
 
     });                                                                                 // End result is a list box containing all parameter IDs and their values
 
