@@ -87,7 +87,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4">
-                                    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""));
+                                    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""))
                                 </div>
                                 <div class="col-md-4">
                                     <input type="button" id="Submit" value="PopulateListBox" />
@@ -125,6 +125,29 @@
                     value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
                 }));
         });
+
+        $(".btn.active").each(function ()
+        {
+            console.log("obbers %o",this);
+
+            console.log(this.control.id + this.control.name);
+
+            
+            $('#ListOfConfigurationParameterValues').append($('<option>',
+                {
+                    value: this.control.id + "|" + this.control.name, text: this.innerText    // Hack to pass parameter id and value through to the back end. String will be split later
+                }));
+                
+        });
+
+        $("[name$=SliderBox]").each(function ()
+        {
+            $('#ListOfConfigurationParameterValues').append($('<option>',
+                {
+                    value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
+                }));
+        });
+
     });                                                                                 // End result is a list box containing all parameter IDs and their values
 
 

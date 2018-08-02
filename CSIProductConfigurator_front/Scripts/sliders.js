@@ -53,16 +53,14 @@ function update(slider) {
 
     var whichSlider = slider.target.id;
 
-    
+    $("[name=" + whichSlider + "Box]").val(slider.value);
 
-    $('#' + whichSlider + "Box").val(slider.value);
+    var CPW = $("[name=CPWSliderBox]").val();
+    var Tier1 = $("[name=Tier1StorageSliderBox]").val();
 
-    var CPW = $("#CPWSliderBox").val();
-    var Tier1 = $("#Tier1StorageSliderBox").val();
+    //var totalCost = (CPW * Tier1);
 
-    var totalCost = (CPW * Tier1);
-
-    console.log(CPW + " " + Tier1 + " " + totalCost);
+    //console.log(CPW + " " + Tier1 + " " + totalCost);
 
     /*
     if (whichSlider == 'monthsSlider') {
