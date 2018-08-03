@@ -184,7 +184,7 @@ namespace CSIProductConfigurator_front.Controllers
 
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            return View(configurationDetail);
         }
     }
 }

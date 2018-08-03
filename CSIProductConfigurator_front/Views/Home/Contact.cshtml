@@ -1,6 +1,14 @@
-﻿@{
+﻿@using CSIProductConfigurationCommon.Models;
+
+@model ConfigurationDetail
+
+@{
     ViewBag.Title = "Contact";
 }
+<p>
+    @ObjectInfo.Print(Model)
+</p>
+
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
