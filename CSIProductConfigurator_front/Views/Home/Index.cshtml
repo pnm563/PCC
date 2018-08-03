@@ -20,7 +20,7 @@
                     </div>
                     <div class="panel-body">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form row">
+                        <div class="row">
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.SelectedConfigurationType, new { @class = "control-label col-md-4" })
                                 <div class="col-md-8">
@@ -105,6 +105,11 @@
 <script>
 
     $('#MainForm').submit(function () {
+
+        $('[name$=HiddenValidator]').each(function () {
+            console.log("obbers %o", this);
+        });
+
         $('#ListOfConfigurationParameterValues').empty();                               // Clear the contents of parameter list box known as ListOfConfigurationParameterValues
 
         $('[id$=ParamDropDown] :selected').each(function ()                             // Selected value for each item ending with ParamDropDown, add to ListOfConfigurationParameterValues
@@ -158,6 +163,7 @@
             $.validator.unobtrusive.parse(form);                                       // Clear the form validation and parse again. Necessary to appply validation to new dynamic items
             $('#collapse1').collapse('show');                                         // We can now expand the panel and show the parameter list
             initSliders();
+            $("#MainForm").data("validator").settings.ignore = "";                      // Allows validation of every form item which includes the hidden field for the buttons
             return;
         });
     });
@@ -181,7 +187,9 @@
                     .removeData("unobtrusiveValidation");
                 $.validator.unobtrusive.parse(form);
                 $('#collapse1').collapse('show');
-                initSliders();
+                initSliders();  
+                $("#MainForm").data("validator").settings.ignore = "";                  // Allows validation of every form item which includes the hidden field for the buttons
+
                 return;
             });
         }
