@@ -6,6 +6,7 @@
     [ModifiedBy]          NVARCHAR (255)   NOT NULL,
     [RowVersion]          ROWVERSION       NOT NULL,
     [ConfigurationTypeID] UNIQUEIDENTIFIER NOT NULL,
-    [ParameterID]         UNIQUEIDENTIFIER NOT NULL
+    [ParameterID]         UNIQUEIDENTIFIER NOT NULL, 
+    [DisplayOrder] INT NULL
 );
 

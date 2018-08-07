@@ -18,6 +18,7 @@ namespace CSIProductConfigurationCommon.Models
         public AttributeType ParameterType1 { get; set; }
         public bool IsHasValues { get; set; }
         public List<ParameterValue> ParameterValues { get; set; }
+        public int DisplayOrder { get; set; }
 
         [Ignore]
         public bool IsProcessed { get; set; }
