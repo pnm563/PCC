@@ -295,6 +295,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Properties\PublishProfiles\Sapphire-Cat-uat - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Sapphire-Cat-uat - Web Deploy1.pubxml" />
+    <None Include="Properties\PublishProfiles\Sapphire-Cat-uat - Web Deploy2.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
