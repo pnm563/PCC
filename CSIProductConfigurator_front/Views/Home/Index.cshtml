@@ -127,9 +127,9 @@
             }));
         });
 
-        $(".btn.active").each(function (obj) {
+        $(".btn.active").each(function () {
 
-            console.log(JSON.stringify(obj, null, "\t"));
+            //console.dir(this);
 
             $('#ListOfConfigurationParameterValues').append($('<option>',               // For each active button, add value to ListOfConfigurationParameterValues
             {
