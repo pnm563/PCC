@@ -35,5 +35,5 @@ textarea {
 }
 
 .slider.slider-horizontal {
-    width: 175px; /* sample value - set it as you like*/
+    width: 100%; /* sample value - set it as you like*/
 }

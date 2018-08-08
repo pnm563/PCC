@@ -4,7 +4,7 @@
         min: 0,
         max: 500,
         step: 1,
-
+        tooltip: 'always',
         formatter: function (value) {
             return "£" + value;
         }
@@ -20,7 +20,7 @@
         min: 0,
         max: 1500,
         step: 1,
-
+        tooltip: 'always',
         formatter: function (value) {
             return "$" + value;
         }
@@ -36,7 +36,7 @@
         min: 0,
         max: 5000,
         step: 50,
-
+        tooltip: 'always',
         formatter: function (value) {
             return "€" + value;
         }

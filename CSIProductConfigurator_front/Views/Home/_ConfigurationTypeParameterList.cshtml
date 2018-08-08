@@ -48,13 +48,12 @@
             {
                 if (item.ParameterType1 == AttributeType.IntegerType)
                 {
-                    <div class="col-md-4">
-                        @Html.TextBox(item.ParameterName + "SliderBox", "0", htmlAttributes: new { @id = item.ParameterID, @class = "form-control", @readonly = "readonly" })
-                    </div>
-
-                    <div class="col-md-8">
+                    
                         <div id="@(item.ParameterName)Slider"></div>
-                    </div>
+                        
+                    
+                        @Html.TextBox(item.ParameterName + "SliderBox", "0", htmlAttributes: new { @id = item.ParameterID, @class = "form-control", @readonly = "readonly", @style = "display:none" })
+                    
                 }
                 else
                 {
