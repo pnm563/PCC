@@ -170,17 +170,17 @@ namespace CSIProductConfigurator_front.Controllers
 
             }
 
-            
 
-            //string JSONdocType = JsonConvert.SerializeObject(cView);
 
-            //HttpContent content = new StringContent(JSONdocType, Encoding.UTF8, "application/json");
+            string JSONdocType = JsonConvert.SerializeObject(configurationDetail);
 
-            //serviceRequest.ExecuteRequest<string>(HttpRequestMethod.POST,
-            //    String.Format(
-            //    ServiceGatewayURI.ConfigurationDetailURI),
-            //    content
-            //    );
+            HttpContent content = new StringContent(JSONdocType, Encoding.UTF8, "application/json");
+
+            serviceRequest.ExecuteRequest<string>(HttpRequestMethod.POST,
+                String.Format(
+                ServiceGatewayURI.ConfigurationDetailURI),
+                content
+                );
 
             ViewBag.Message = "Your contact page.";
 
