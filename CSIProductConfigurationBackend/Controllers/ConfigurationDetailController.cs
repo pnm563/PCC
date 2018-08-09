@@ -45,7 +45,7 @@ namespace CSIProductConfigurationBackend.Controllers
             //}
 
             ConfigurationTypeOutputContext _ctoctx = new ConfigurationTypeOutputContext();
-            ctdView.ConfigurationTypeOutputs = _ctoctx.GetConfigurationTypeOutputsByConfigurationTypeID(ctdView.Id);
+            ctdView.ConfigurationTypeOutputs = _ctoctx.GetConfigurationTypeOutputsByConfigurationTypeID(ctdView.ConfigurationTypeID);
 
             ConfigurationDetailContext _ctx = new ConfigurationDetailContext();
             ctdView = _ctx.GetPricing(ctdView);
