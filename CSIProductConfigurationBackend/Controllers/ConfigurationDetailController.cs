@@ -12,7 +12,7 @@ namespace CSIProductConfigurationBackend.Controllers
 {
     public class ConfigurationDetailController : ApiController
     {
-        public HttpResponseMessage Post(ConfigurationDetail ctdView)
+        public ConfigurationDetail Post(ConfigurationDetail ctdView)
         {
             //ConfigurationTypeContext _cttx = new ConfigurationTypeContext();
             //ConfigurationType configurationType = _cttx.GetConfigurationTypeByName("iSeries Powercloud");
@@ -49,7 +49,8 @@ namespace CSIProductConfigurationBackend.Controllers
 
             ConfigurationDetailContext _ctx = new ConfigurationDetailContext();
             ctdView = _ctx.GetPricing(ctdView);
-            return new HttpResponseMessage() { Content = new StringContent(ctdView.OutputText, Encoding.UTF8, "text/html") };
+            //return new HttpResponseMessage() { Content = new StringContent(ctdView.OutputText, Encoding.UTF8, "text/html") };
+            return ctdView;
         }
     }
 }

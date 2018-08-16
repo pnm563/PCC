@@ -176,7 +176,7 @@ namespace CSIProductConfigurator_front.Controllers
 
             HttpContent content = new StringContent(JSONdocType, Encoding.UTF8, "application/json");
 
-            serviceRequest.ExecuteRequest<string>(HttpRequestMethod.POST,
+            configurationDetail = serviceRequest.ExecuteRequest<ConfigurationDetail>(HttpRequestMethod.POST,
                 String.Format(
                 ServiceGatewayURI.ConfigurationDetailURI),
                 content
