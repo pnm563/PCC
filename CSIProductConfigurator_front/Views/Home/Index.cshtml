@@ -175,6 +175,13 @@
         var id = $('[id^=SelectedConfigurationType]').val();
 
         $('#configurationTypeOutputs').load("/Home/ConfigurationTypeOutputList/" + id, function (response, status) {
+            
+            if (response == "") {
+                $('#configurationTypeOutputs').html("Error - 0 output types returned");
+            }
+            if (status == "error") {
+                $('#configurationTypeOutputs').html("Error loading Output types");
+            }
             $('#collapse2').collapse('show');
         });
     });
