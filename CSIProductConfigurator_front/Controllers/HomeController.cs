@@ -109,6 +109,25 @@ namespace CSIProductConfigurator_front.Controllers
             return PartialView("_ConfigurationTypeParameterList", cTypeParams);
         }
 
+        public ActionResult ConfigurationTypeOutputList(String id)
+        {
+            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
+            List<ConfigurationTypeOutput> cTypeOutputs = new List<ConfigurationTypeOutput>();
+
+            try
+            {
+                cTypeOutputs = serviceRequest.ExecuteRequest<List<ConfigurationTypeOutput>>(HttpRequestMethod.GET,
+                    String.Format(
+                        ServiceGatewayURI.GetConfigurationTypeOutputByConfigurationTypeIDURI, id)
+                );
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return PartialView("_ConfigurationTypeOutputList", cTypeOutputs);
+        }
+
         public ActionResult Regarder()
         {
            

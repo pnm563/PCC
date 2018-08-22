@@ -20,6 +20,13 @@ namespace CSIProductConfigurator_front.Data.URIs
 
         #endregion
 
+        #region ConfigurationTypeOutput
+
+        public const String ConfigurationTypeOutputURI = "API/ConfigurationTypeOutput";
+        public const String GetConfigurationTypeOutputByConfigurationTypeIDURI = ConfigurationTypeOutputURI + "?configurationTypeID={0}";
+        
+        #endregion
+
         #region ParameterValue
 
         public const String ParameterValueURI = "API/ParameterValue";

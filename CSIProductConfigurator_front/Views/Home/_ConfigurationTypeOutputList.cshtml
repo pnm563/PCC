@@ -1,0 +1,9 @@
+﻿@using CSIProductConfigurationCommon.Models;
+
+@model List<ConfigurationTypeOutput>
+
+@foreach (ConfigurationTypeOutput thing in Model)
+{
+    @thing.Name;
+}
+

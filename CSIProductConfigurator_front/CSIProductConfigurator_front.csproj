@@ -223,6 +223,7 @@
     <Content Include="Views\Warbler\Index.cshtml" />
     <Content Include="Views\Home\_ConfigurationTypeParameterList.cshtml" />
     <Content Include="Views\Home\Regarder.cshtml" />
+    <Content Include="Views\Home\_ConfigurationTypeOutputList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
