@@ -186,5 +186,20 @@ namespace CSIProductConfigurator_front.Controllers
 
             return View(configurationDetail);
         }
+
+        [HttpGet]
+        public ActionResult Contact()
+        {
+            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
+            ConfigurationDetail configurationDetail = new ConfigurationDetail();
+
+            configurationDetail = serviceRequest.ExecuteRequest<ConfigurationDetail>(HttpRequestMethod.GET,
+                String.Format(
+                ServiceGatewayURI.ConfigurationDetailURI)
+                );
+
+            return View(configurationDetail);
+        }
+
     }
 }
