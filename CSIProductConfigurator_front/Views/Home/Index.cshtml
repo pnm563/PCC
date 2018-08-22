@@ -15,7 +15,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            Strongly typed model properties
+                            Customer and configuration
                         </h4>
                     </div>
                     <div class="panel-body">
@@ -61,7 +61,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            Dynamic properties based on configuration
+                            Configuration properties
                         </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
@@ -78,18 +78,20 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            Submit button
+                            Calculate and output
                         </h4>
                     </div>
 
-                    <div class="panel-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-11">
-                                    <input type="submit" value="Calculate" class="btn btn-default" />
-                                </div>
-                                <div class="col-md-1">
-                                    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""), htmlAttributes: new { @hidden = "hidden" })
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="submit" value="Calculate" class="btn btn-default" />
+                                    </div>
+                                    <div class="col-md-6" id="configurationTypeOutputs">
+                                        Here are some outputs, yeah.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +99,11 @@
                 </div>
             </div>
         </div>
+
+
     </div>
+    
+    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""), htmlAttributes: new { @hidden = "hidden" })
 
 }
 
@@ -115,16 +121,16 @@
 
         $('[id$=ParamDropDown] :selected').each(function () {                            // Selected value for each item ending with ParamDropDown, add to ListOfConfigurationParameterValues
             $('#ListOfConfigurationParameterValues').append($('<option>',
-            {
-                value: $(this).val() + "|" + $(this).text(), text: $(this).text()       // Hack to pass parameter id and value through to the back end. String will be split later
-            }));
+                {
+                    value: $(this).val() + "|" + $(this).text(), text: $(this).text()       // Hack to pass parameter id and value through to the back end. String will be split later
+                }));
         });
 
         $('[name$=Editor]').each(function () {                                           // For each free text editor field, add to ListOfConfigurationParameterValues
             $('#ListOfConfigurationParameterValues').append($('<option>',
-            {
-                value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
-            }));
+                {
+                    value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
+                }));
         });
 
         $(".btn.active").each(function () {
@@ -132,16 +138,16 @@
             //console.dir(this);
 
             $('#ListOfConfigurationParameterValues').append($('<option>',               // For each active button, add value to ListOfConfigurationParameterValues
-            {
-                value: this.firstElementChild.id + "|" + this.innerText, text: this.innerText    // Hack to pass parameter id and value through to the back end. String will be split later
-            }));
+                {
+                    value: this.firstElementChild.id + "|" + this.innerText, text: this.innerText    // Hack to pass parameter id and value through to the back end. String will be split later
+                }));
         });
 
         $("[name$=SliderBox]").each(function () {                                       // For each slider text box, add active value to ListOfConfigurationParameterValues
             $('#ListOfConfigurationParameterValues').append($('<option>',
-            {
-                value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
-            }));
+                {
+                    value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
+                }));
         });
 
         $("#ListOfConfigurationParameterValues option").prop("selected", true);         // Select each one in the list or the values won't be submitted with the form
@@ -164,15 +170,29 @@
         });
     });
 
+    $('#collapse1').on('shown.bs.collapse', function () {
+        //var isCollapse2Expanded = $('#collapse2').attr("aria-expanded");
+        //if (isCollapse2Expanded == 'false') {
+           $('#collapse2').collapse('show');
+        //}
+    });
+
+    $('#collapse1').on('hidden.bs.collapse', function () {
+        //var isCollapse2Expanded = $('#collapse2').attr("aria-expanded");
+        //if (isCollapse2Expanded == 'true') {
+            $('#collapse2').collapse('hide');
+        //}
+    });
+
     $('[id^=SelectedConfigurationType]').on('change', function (e)                    // Contents of the dropdown has changed, a configuration has been selected
     {
         if (e.currentTarget.selectedIndex == 0) {
             return;                                                                     // Do nothing if first item (prompt message) selected
         }
 
-        var isExpanded = $('#collapse1').attr("aria-expanded");                         // Is the collapsible expanded or not?
-
-        if (isExpanded == 'true') {
+        var isCollapse1Expanded = $('#collapse1').attr("aria-expanded");                         // Is the collapsible expanded or not?
+        
+        if (isCollapse1Expanded == 'true') {
             $('#collapse1').collapse('hide');                                           // If it is, then hide it. Execution then passes to the hidden.bs.collapse event above.
         }
         else {                                                                               // The collapsible is not expanded, so we can safely load the div
@@ -182,11 +202,12 @@
                     .removeData("unobtrusiveValidation");
                 $.validator.unobtrusive.parse(form);
                 $('#collapse1').collapse('show');
-                initSliders();  
+                initSliders();
                 $("#MainForm").data("validator").settings.ignore = "";                  // Allows validation of every form item which includes the hidden field for the buttons
                 return;
             });
         }
+
         return;
     });
 
