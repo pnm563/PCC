@@ -73,7 +73,6 @@ namespace CSIProductConfigurator_front.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-
             // Fetch all fixed parameter values ready to populate dropdown boxes with these choices.
             try
             {
@@ -86,10 +85,8 @@ namespace CSIProductConfigurator_front.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             
             // Nested loop round each configuration type, adding fixed parameter values to the list when there is a match from the ParameterValues collection
-            
 
             foreach (ConfigurationTypeParameter ctp in cTypeParams)
             {
@@ -104,7 +101,6 @@ namespace CSIProductConfigurator_front.Controllers
                     }
                 }
             }
-
 
             return PartialView("_ConfigurationTypeParameterList", cTypeParams);
         }
@@ -175,7 +171,6 @@ namespace CSIProductConfigurator_front.Controllers
                 String parameterName = null;
                 AttributeType parameterType = 0;
 
-
                 foreach (Parameter param in theParams)
                 {
                     if (param.Id.ToString() == id)
@@ -188,8 +183,6 @@ namespace CSIProductConfigurator_front.Controllers
                 configurationDetail.ConfigurationParameterValues.Add(new ConfigurationParameterValue() { ConfigurationID = configurationDetail.Id, ParameterID = id, ParameterName = parameterName, ParameterType1 = parameterType, Value = value });
 
             }
-
-
 
             string JSONdocType = JsonConvert.SerializeObject(configurationDetail);
 
