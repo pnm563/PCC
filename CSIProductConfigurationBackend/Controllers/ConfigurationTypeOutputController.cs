@@ -16,7 +16,7 @@ namespace CSIProductConfigurationBackend.Controllers
         {
             return new string[] { "value1", "value2" };
         }
-
+        
         public List<ConfigurationTypeOutput> Get(String configurationTypeID)
         {
             ConfigurationTypeOutputContext _otx = new ConfigurationTypeOutputContext();

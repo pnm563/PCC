@@ -203,7 +203,9 @@ namespace CSIProductConfigurator_front.Controllers
 
             ViewBag.Message = "Your contact page.";
 
-            return View(configurationDetail);
+            //return View(configurationDetail);
+            //return new HttpResponseMessage() { Content = new StringContent(configurationDetail.OutputText, Encoding.UTF8, "text/html") };
+            return Content(configurationDetail.OutputText);
         }
 
         [HttpGet]

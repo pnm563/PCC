@@ -84,17 +84,16 @@
 
                     <div id="collapse2" class="panel-collapse collapse">
                         <div class="panel-body">
-                            
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <input type="submit" value="Calculate" class="btn btn-default" />
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="submit" value="Calculate" class="btn btn-default" />
                                 </div>
-    
-                                <div class="row">
-                                    <div class="col-md-12" id="configurationTypeOutputs"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="configurationTypeOutputs">
+
                                 </div>
-                            
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,56 +102,73 @@
 
 
     </div>
-    
-    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""), htmlAttributes: new { @hidden = "hidden" })
+
+    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""), htmlAttributes: new { @hidden = "hidden" })//
 
 }
 
 <script>
 
-    $('#MainForm').submit(function () {
+    $('#MainForm').submit(function (e) {
 
+        e.preventDefault();                                                             // intercept Submit function. We can still use a submit form button and the validation works,
+        // with the added bonus of being able to make the POST via ajax rather than traditionally.
         /*
         $('[name$=HiddenValidator]').each(function () {
             console.log("obbers %o", this);
         });
         */
 
-        $('#ListOfConfigurationParameterValues').empty();                               // Clear the contents of parameter list box known as ListOfConfigurationParameterValues
+        var validator = $(this).validate();
+        if (validator.form()) {
 
-        $('[id$=ParamDropDown] :selected').each(function () {                            // Selected value for each item ending with ParamDropDown, add to ListOfConfigurationParameterValues
-            $('#ListOfConfigurationParameterValues').append($('<option>',
-                {
-                    value: $(this).val() + "|" + $(this).text(), text: $(this).text()       // Hack to pass parameter id and value through to the back end. String will be split later
-                }));
-        });
+            $('#ListOfConfigurationParameterValues').empty();                               // Clear the contents of parameter list box known as ListOfConfigurationParameterValues
 
-        $('[name$=Editor]').each(function () {                                           // For each free text editor field, add to ListOfConfigurationParameterValues
-            $('#ListOfConfigurationParameterValues').append($('<option>',
-                {
-                    value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
-                }));
-        });
+            $('[id$=ParamDropDown] :selected').each(function () {                            // Selected value for each item ending with ParamDropDown, add to ListOfConfigurationParameterValues
+                $('#ListOfConfigurationParameterValues').append($('<option>',
+                    {
+                        value: $(this).val() + "|" + $(this).text(), text: $(this).text()       // Hack to pass parameter id and value through to the back end. String will be split later
+                    }));
+            });
 
-        $(".btn.active").each(function () {
+            $('[name$=Editor]').each(function () {                                           // For each free text editor field, add to ListOfConfigurationParameterValues
+                $('#ListOfConfigurationParameterValues').append($('<option>',
+                    {
+                        value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
+                    }));
+            });
 
-            //console.dir(this);
+            $(".btn.active").each(function () {
 
-            $('#ListOfConfigurationParameterValues').append($('<option>',               // For each active button, add value to ListOfConfigurationParameterValues
-                {
-                    value: this.firstElementChild.id + "|" + this.innerText, text: this.innerText    // Hack to pass parameter id and value through to the back end. String will be split later
-                }));
-        });
+                //console.dir(this);
 
-        $("[name$=SliderBox]").each(function () {                                       // For each slider text box, add active value to ListOfConfigurationParameterValues
-            $('#ListOfConfigurationParameterValues').append($('<option>',
-                {
-                    value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
-                }));
-        });
+                $('#ListOfConfigurationParameterValues').append($('<option>',               // For each active button, add value to ListOfConfigurationParameterValues
+                    {
+                        value: this.firstElementChild.id + "|" + this.innerText, text: this.innerText    // Hack to pass parameter id and value through to the back end. String will be split later
+                    }));
+            });
 
-        $("#ListOfConfigurationParameterValues option").prop("selected", true);         // Select each one in the list or the values won't be submitted with the form
+            $("[name$=SliderBox]").each(function () {                                       // For each slider text box, add active value to ListOfConfigurationParameterValues
+                $('#ListOfConfigurationParameterValues').append($('<option>',
+                    {
+                        value: $(this).attr("id") + "|" + $(this).val(), text: $(this).val()    // Hack to pass parameter id and value through to the back end. String will be split later
+                    }));
+            });
 
+            $("#ListOfConfigurationParameterValues option").prop("selected", true);         // Select each one in the list or the values won't be submitted with the form
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: (data) => {
+                    console.log(data);
+                }
+            });
+        }
     });                                                                                 // End result is a list box containing all parameter IDs and their values
 
     $('#collapse1').on('hidden.bs.collapse', function ()                                // Once the collapsible panel has finished collapsing
@@ -178,7 +194,7 @@
         var id = $('[id^=SelectedConfigurationType]').val();
 
         $('#configurationTypeOutputs').load("/Home/ConfigurationTypeOutputList/" + id, (response, status) => { // load up the output panel...
-            
+
             if (response.length < 5) {
                 $('#configurationTypeOutputs').html("<label class=\"btn-warning\">Error - 0 output types returned</label>");
             }
@@ -196,7 +212,7 @@
         }
 
         var isCollapse1Expanded = $('#collapse1').attr("aria-expanded");                         // Is the collapsible expanded or not?
-        
+
         if (isCollapse1Expanded == 'true') {
             $('#collapse1').collapse('hide');                                           // If it is, then hide it. Execution then passes to the hidden.bs.collapse event above.
         }
