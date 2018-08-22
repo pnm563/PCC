@@ -2,8 +2,32 @@
 
 @model List<ConfigurationTypeOutput>
 
+@{
+    List<ConfigurationTypeOutput> sortedList = Model.OrderBy(a => a.Label).ToList();
+    int i = 1;
+}
+
 @foreach (ConfigurationTypeOutput thing in Model)
 {
-    @thing.Name;
+
+    if (i % 2 == 1)
+    {
+        @Html.Raw("<div class=\"row\">")
+    }
+
+    <div class="form-group col-md-6">
+
+        @Html.Label(thing.Label, htmlAttributes: new { @class = "control-label col-md-8" })
+        <div class="col-md-4">
+            @Html.TextBox(thing.Label, "", htmlAttributes: new { @class = "form-control" })
+        </div>
+
+    </div>
+    if (i % 2 == 0 || (i % 2 == 1 && i == Model.Count()))
+    {
+        @Html.Raw("</div>")
+    }
+
+    i++;
 }
 

@@ -84,16 +84,17 @@
 
                     <div id="collapse2" class="panel-collapse collapse">
                         <div class="panel-body">
-                            <div class="container">
+                            
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <input type="submit" value="Calculate" class="btn btn-default" />
                                     </div>
-                                    <div class="col-md-6" id="configurationTypeOutputs">
-                                        
-                                    </div>
                                 </div>
-                            </div>
+    
+                                <div class="row">
+                                    <div class="col-md-12" id="configurationTypeOutputs"></div>
+                                </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -156,6 +157,8 @@
 
     $('#collapse1').on('hidden.bs.collapse', function ()                                // Once the collapsible panel has finished collapsing
     {
+        $('#collapse2').collapse('hide');                                               // Always hide the output panel too, once the parameter panel is fully closed
+
         var id = $('[id^=SelectedConfigurationType]').val();                            // Find which configuration we need to display parameters for
 
         $('#configurationTypeContent').load("/Home/ConfigurationTypeParameterList/" + id, function (response, status) {    // Populate the div with the parameter list
@@ -170,24 +173,20 @@
         });
     });
 
-    $('#collapse1').on('shown.bs.collapse', function () {
+    $('#collapse1').on('shown.bs.collapse', function () {                               // Once the parameter panel is fully shown
 
         var id = $('[id^=SelectedConfigurationType]').val();
 
-        $('#configurationTypeOutputs').load("/Home/ConfigurationTypeOutputList/" + id, function (response, status) {
+        $('#configurationTypeOutputs').load("/Home/ConfigurationTypeOutputList/" + id, (response, status) => { // load up the output panel...
             
-            if (response == "") {
-                $('#configurationTypeOutputs').html("Error - 0 output types returned");
+            if (response.length < 5) {
+                $('#configurationTypeOutputs').html("<label class=\"btn-warning\">Error - 0 output types returned</label>");
             }
             if (status == "error") {
-                $('#configurationTypeOutputs').html("Error loading Output types");
+                $('#configurationTypeOutputs').html("<label class=\"btn-warning\">Error loading Output types</label>");
             }
-            $('#collapse2').collapse('show');
+            $('#collapse2').collapse('show');                                                                       // and display it
         });
-    });
-
-    $('#collapse1').on('hidden.bs.collapse', function () {
-        $('#collapse2').collapse('hide');
     });
 
     $('[id^=SelectedConfigurationType]').on('change', function (e)                    // Contents of the dropdown has changed, a configuration has been selected
