@@ -101,7 +101,7 @@
         </div>
     </div>
 
-    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""), htmlAttributes: new { @hidden = "hidden" })//
+    @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""), htmlAttributes: new { @hidden = "hidden" })
 
 }
 
@@ -156,7 +156,7 @@
 
                 $('#ListOfConfigurationParameterValues').append($('<option>',               // For each active button, add value to ListOfConfigurationParameterValues
                     {
-                        value: this.firstElementChild.id + "|" + this.innerText, text: this.innerText    // Hack to pass parameter id and value through to the back end. String will be split later
+                        value: $.trim(this.firstElementChild.id + "|" + this.innerText), text: $.trim(this.innerText)    // Hack to pass parameter id and value through to the back end. String will be split later
                     }));
             });
 
@@ -171,11 +171,16 @@
 
             var form = $(this);
             var url = form.attr('action');
+            var formData = form.serialize();
+
+            console.log('------------formdata begins------');
+            console.log(formData);
+            console.log('------------formdata ends------');
 
             $.ajax({
                 type: "POST",
                 url: url,
-                data: form.serialize(),
+                data: formData,
                 success: (data) => {
 
                     console.log(data);

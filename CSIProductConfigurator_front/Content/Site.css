@@ -33,7 +33,7 @@ textarea {
     background-color: #bdd7ee;
 }
 
-.panel-default > .panel-heading-white {
+.panel-default>.panel-heading-white {
     background-color: #ffffff;
 }
 
