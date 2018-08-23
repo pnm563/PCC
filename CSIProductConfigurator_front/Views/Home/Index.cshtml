@@ -86,12 +86,12 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="submit" value="Calculate" class="btn btn-default" />
+                                    <button type="submit" class="btn btn-default" id="submitButton" data-loading-text="<i class=&quot;fa fa-spinner fa-spin&quot;></i> Calculating...">Calculate</button>
+                                    
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12" id="configurationTypeOutputs">
-
                                 </div>
                             </div>
                         </div>
@@ -107,19 +107,33 @@
 
 <script>
 
+    //<button class="btn btn-default" id="JSONbutton">JSON</button>
+
+    $('#JSONbutton').click(() => {
+        var stringThing = "[{\"Name\":\"TCV\",\"Label\":\"Total Contract Value (TCV)\",\"Action\":\"TermMarginPlusCosts\",\"ActionType\":0,\"ConfigurationTypeID\":\"c95bdb27-bbf8-499d-977a-8deee2b16482\",\"ValueType\":2,\"IsProcessed\":true,\"Value\":\"3711319.72947758\",\"Id\":\"ad18cd89-90dc-4bef-905b-941ef1108119\",\"RowVersion\":\"AAAAAAAACAQ=\",\"DateCreated\":\"2018-06-18T08:16:55.43+01:00\",\"DateModified\":\"2018-06-18T08:16:55.43+01:00\",\"CreatedBy\":\"GS\",\"ModifiedBy\":\"GS\"},{\"Name\":\"AnnualPrice\",\"Label\":\"AnnualPrice\",\"Action\":\"AnnualEndUserPrice\",\"ActionType\":0,\"ConfigurationTypeID\":\"c95bdb27-bbf8-499d-977a-8deee2b16482\",\"ValueType\":2,\"IsProcessed\":false,\"Value\":\"1237106.57649253\",\"Id\":\"93e6f178-a742-4176-80f6-159b4577268c\",\"RowVersion\":\"AAAAAAAACAU=\",\"DateCreated\":\"2018-06-18T12:40:48.67+01:00\",\"DateModified\":\"2018-06-18T12:40:48.67+01:00\",\"CreatedBy\":\"GS\",\"ModifiedBy\":\"GS\"}]"
+
+        var someMoreJSON = $.parseJSON(stringThing);
+
+        $.each(someMoreJSON, (index,outputType) => {
+            
+        });
+    })
+
     $('#MainForm').submit(function (e) {
 
         e.preventDefault();                                                             // intercept Submit function. We can still use a submit form button and the validation works,
-        // with the added bonus of being able to make the POST via ajax rather than traditionally.
+
         /*
         $('[name$=HiddenValidator]').each(function () {
             console.log("obbers %o", this);
         });
         */
-
+         
         var validator = $(this).validate();
         if (validator.form()) {
 
+            $('#submitButton').button('loading');
+            
             $('#ListOfConfigurationParameterValues').empty();                               // Clear the contents of parameter list box known as ListOfConfigurationParameterValues
 
             $('[id$=ParamDropDown] :selected').each(function () {                            // Selected value for each item ending with ParamDropDown, add to ListOfConfigurationParameterValues
@@ -163,7 +177,14 @@
                 url: url,
                 data: form.serialize(),
                 success: (data) => {
-                    console.log(data);
+                    var someJSON = $.parseJSON(data);
+
+                    $.each(someJSON, (index,outputType) => {
+                        $('#' + outputType.Name).val(outputType.Value);
+                    });
+
+                    $('#submitButton').button('reset');
+
                 }
             });
         }
