@@ -177,15 +177,22 @@
                 url: url,
                 data: form.serialize(),
                 success: (data) => {
+
+                    console.log(data);
+
                     var someJSON = $.parseJSON(data);
 
-                    $.each(someJSON, (index,outputType) => {
+                    $.each(someJSON.ConfigurationTypeOutputs, (index,outputType) => {
                         $('#' + outputType.Name).val(outputType.Value);
                     });
 
                     $('#submitButton').button('reset');
 
-                }
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+            }
             });
         }
     });                                                                                 // End result is a list box containing all parameter IDs and their values

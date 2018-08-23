@@ -30,8 +30,11 @@ textarea {
 }
 
 .panel-body {
-    background-color: #bbd7ee;
+    background-color: #bdd7ee;
+}
 
+.panel-default > .panel-heading-white {
+    background-color: #ffffff;
 }
 
 .slider.slider-horizontal {

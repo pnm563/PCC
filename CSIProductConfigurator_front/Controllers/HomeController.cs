@@ -196,7 +196,7 @@ namespace CSIProductConfigurator_front.Controllers
 
             ViewBag.Message = "Your contact page.";
 
-            string outputValues = JsonConvert.SerializeObject(configurationDetail.ConfigurationTypeOutputs);
+            string outputValues = JsonConvert.SerializeObject(configurationDetail);
 
             //return View(configurationDetail);
             //return new HttpResponseMessage() { Content = new StringContent(configurationDetail.OutputText, Encoding.UTF8, "text/html") };
