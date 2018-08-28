@@ -196,6 +196,15 @@ namespace CSIProductConfigurator_front.Controllers
 
             ViewBag.Message = "Your contact page.";
 
+            foreach (ConfigurationTypeOutput output in configurationDetail.ConfigurationTypeOutputs)
+            {
+                if (output.ValueType == AttributeType.FloatType)
+                {
+                    output.Value = String.Format("£{0:n}", float.Parse(output.Value));
+                }
+            }
+                
+
             string outputValues = JsonConvert.SerializeObject(configurationDetail);
 
             //return View(configurationDetail);
