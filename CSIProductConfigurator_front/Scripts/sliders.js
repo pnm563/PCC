@@ -6,7 +6,7 @@
         step: 1,
         tooltip: 'always',
         formatter: function (value) {
-            return "£" + value;
+            return value;
         }
     });
 
