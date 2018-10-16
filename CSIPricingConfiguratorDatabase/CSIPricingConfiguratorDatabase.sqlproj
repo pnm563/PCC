@@ -229,6 +229,7 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="dbo\Tables\Customer.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CSIPricingConfiguratorDatabase.publish.xml" />

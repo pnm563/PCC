@@ -22,7 +22,7 @@
         step: 1,
         tooltip: 'always',
         formatter: function (value) {
-            return "£" + value;
+            return value + " TB";
         }
     });
 
@@ -38,7 +38,7 @@
         step: 50,
         tooltip: 'always',
         formatter: function (value) {
-            return "£" + value;
+            return value + " TB";
         }
     });
 
