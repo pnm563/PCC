@@ -1,5 +1,6 @@
 ﻿using CSIProductConfigurationCommon.Enums;
 using CSIProductConfigurationCommon.Models;
+using CSIProductConfigurator_front.Controllers.Overrides;
 using CSIProductConfigurator_front.Data.Configuration;
 using CSIProductConfigurator_front.Data.URIs;
 using CSIProductConfigurator_front.Models;
@@ -198,8 +199,15 @@ namespace CSIProductConfigurator_front.Controllers
             {
                 if (output.ValueType == AttributeType.FloatType)
                 {
+                    if (output.Value != null)
+                    {
+                        output.Value = String.Format("£{0:n}", float.Parse(output.Value));
+                    }
+                    else
+                    {
+                        return new JsonHttpStatusResult(configurationDetail.OutputText, HttpStatusCode.InternalServerError);
+                    }
 
-                    output.Value = String.Format("£{0:n}", float.Parse(output.Value));
                 }
             }
 
