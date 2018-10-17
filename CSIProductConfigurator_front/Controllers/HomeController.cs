@@ -70,7 +70,9 @@ namespace CSIProductConfigurator_front.Controllers
                     String.Format(
                         ServiceGatewayURI.GetConfigurationTypeParameterByConfigurationTypeIDURI, id)
                 );
-            } catch {
+            }
+            catch
+            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
@@ -86,7 +88,7 @@ namespace CSIProductConfigurator_front.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
+
             // Nested loop round each configuration type, adding fixed parameter values to the list when there is a match from the ParameterValues collection
 
             foreach (ConfigurationTypeParameter ctp in cTypeParams)
@@ -127,7 +129,7 @@ namespace CSIProductConfigurator_front.Controllers
 
         public ActionResult Regarder()
         {
-           
+
             return View();
         }
         [HttpPost]
@@ -166,7 +168,7 @@ namespace CSIProductConfigurator_front.Controllers
 
             foreach (String pipyString in cView.ListOfConfigurationParameterValues)
             {
-                
+
                 String id = pipyString.Split('|')[0];
                 String value = pipyString.Split('|')[1];
                 String parameterName = null;
@@ -232,5 +234,27 @@ namespace CSIProductConfigurator_front.Controllers
             return View(configurationDetail);
         }
 
+        public ActionResult Customers()
+        {
+            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
+
+            List<Customer> theCustomers = new List<Customer>();
+
+            theCustomers = serviceRequest.ExecuteRequest<List<Customer>>(HttpRequestMethod.GET,
+                String.Format(
+                    ServiceGatewayURI.CustomerURI)
+            );
+
+            TypeAheadResults<string> container = new TypeAheadResults<string>();
+
+            container.data.TheResults = new List<string>();
+            foreach (Customer thing in theCustomers)
+            {
+                container.data.TheResults.Add(thing.Description);
+            }
+            
+
+            return Content(JsonConvert.SerializeObject(container));
+        }
     }
 }

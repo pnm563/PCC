@@ -46,5 +46,11 @@ namespace CSIProductConfigurator_front.Data.URIs
 
         #endregion
 
+        #region Customer
+
+        public const String CustomerURI = "API/Customer";
+
+        #endregion
+
     }
 }
