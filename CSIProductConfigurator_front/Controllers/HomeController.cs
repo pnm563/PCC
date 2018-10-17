@@ -194,16 +194,14 @@ namespace CSIProductConfigurator_front.Controllers
                 content
                 );
 
-            ViewBag.Message = "Your contact page.";
-
             foreach (ConfigurationTypeOutput output in configurationDetail.ConfigurationTypeOutputs)
             {
                 if (output.ValueType == AttributeType.FloatType)
                 {
+
                     output.Value = String.Format("£{0:n}", float.Parse(output.Value));
                 }
             }
-                
 
             string outputValues = JsonConvert.SerializeObject(configurationDetail);
 
@@ -213,7 +211,7 @@ namespace CSIProductConfigurator_front.Controllers
         }
 
         [HttpGet]
-        public ActionResult Contact()
+        public ActionResult PreFilledFormTest()
         {
             ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
             ConfigurationDetail configurationDetail = new ConfigurationDetail();

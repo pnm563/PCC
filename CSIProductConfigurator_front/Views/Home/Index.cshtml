@@ -197,6 +197,7 @@
                 error: (jqXHR, textStatus, errorThrown) => {
                     console.log(textStatus);
                     console.log(errorThrown);
+                    console.log(jqXHR.responseText);
                     $('#submitButton').button('reset');
             }
             });
