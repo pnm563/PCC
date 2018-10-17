@@ -30,9 +30,9 @@ namespace CSIProductConfigurator_front
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
                       "~/Content/jquery.typeahead.min.css",
-                      "~/Content/bootstrap-slider.css"));
+                      "~/Content/bootstrap-slider.css",
+                      "~/Content/site.css"));
         }
     }
 }
