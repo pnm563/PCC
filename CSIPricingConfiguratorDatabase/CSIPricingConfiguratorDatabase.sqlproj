@@ -230,6 +230,7 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="dbo\Tables\Customer.sql" />
+    <Build Include="dbo\Stored Procedures\usp_Customer_SelectAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CSIPricingConfiguratorDatabase.publish.xml" />

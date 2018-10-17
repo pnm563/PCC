@@ -8,12 +8,9 @@ using System.Threading.Tasks;
 
 namespace CSIProductConfigurationCommon.Models
 {
-    public class Configuration : EntityBase, IEntity
+    public class Customer : EntityBase, IEntity
     {
-        public String Name { get; set; }
-        public String Description { get; set; }
-        public String CustomerID { get; set; }
-        public String ConfigurationTypeID { get; set; }
-
+        public string Code { get; set; }
+        public string Description { get; set; }
     }
 }

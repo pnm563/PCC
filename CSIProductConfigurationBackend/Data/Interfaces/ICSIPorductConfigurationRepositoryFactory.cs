@@ -20,6 +20,7 @@ namespace CSIProductConfigurationBackend.Data.Interfaces
         ISqlServerRepository<ConfigurationTypeOutput> ConfigurationTypeOutputRepository { get; }
         ISqlServerRepository<ConfigurationTypeParameter> ConfigurationTypeParameterRepository { get; }
         ISqlServerRepository<Constant> ConstantRepository { get; }
+        ISqlServerRepository<Customer> CustomerRepository { get; }
         ISqlServerRepository<Parameter> ParameterRepository { get; }
         ISqlServerRepository<ParameterValue> ParameterValueRepository { get; }
     }

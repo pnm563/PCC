@@ -29,7 +29,7 @@ namespace CSIProductConfigurationBackend.Controllers
             ConfigurationType configurationType = _cttx.GetConfigurationTypeByName("iSeries Powercloud");
 
             ConfigurationDetailContext _ctx = new ConfigurationDetailContext();
-            ConfigurationDetail configurationDetail = new ConfigurationDetail() { CustomerCode = "9999", ConfigurationTypeID = configurationType.Id, Name = "Test1", Id = Guid.NewGuid().ToString() };
+            ConfigurationDetail configurationDetail = new ConfigurationDetail() { CustomerID = "31f4afd2-f2fe-45cf-90a4-00b0d2dea815", ConfigurationTypeID = configurationType.Id, Name = "Test1", Id = Guid.NewGuid().ToString() };
 
             ConfigurationTypeParameterContext _ptx = new ConfigurationTypeParameterContext();
 

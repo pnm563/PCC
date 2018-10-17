@@ -4,7 +4,7 @@ BEGIN
 SELECT [ID]
       ,[Name]
       ,[Description]
-      ,[CustomerCode]
+      ,[CustomerID]
       ,[DateCreated]
       ,[DateModified]
       ,[CreatedBy]

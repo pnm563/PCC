@@ -197,6 +197,7 @@
     <Compile Include="Controllers\ConfigurationTypeController.cs" />
     <Compile Include="Controllers\ConfigurationTypeOutputController.cs" />
     <Compile Include="Controllers\ConfigurationTypeParameterController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\ParameterValueController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="CSIProductConfiguration\ConfigurationTypeOutputContext.cs" />
     <Compile Include="CSIProductConfiguration\ConfigurationTypeParameterContext.cs" />
     <Compile Include="CSIProductConfiguration\ConstantContext.cs" />
+    <Compile Include="CSIProductConfiguration\CustomerContext.cs" />
     <Compile Include="CSIProductConfiguration\ExpressionContext.cs" />
     <Compile Include="CSIProductConfiguration\ParameterContext.cs" />
     <Compile Include="CSIProductConfiguration\ParameterValueContext.cs" />

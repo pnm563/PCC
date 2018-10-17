@@ -156,7 +156,7 @@ namespace CSIProductConfigurator_front.Controllers
 
             ConfigurationDetail configurationDetail = new ConfigurationDetail()
             {
-                CustomerCode = cView.SelectedCustomerCode,
+                //CustomerCode = cView.SelectedCustomerCode,
                 ConfigurationTypeID = cView.SelectedConfigurationType,
                 Name = cView.Name,
                 Description = cView.Description,

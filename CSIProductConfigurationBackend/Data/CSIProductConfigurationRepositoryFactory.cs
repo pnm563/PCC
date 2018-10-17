@@ -45,6 +45,7 @@ namespace CSIProductConfigurationBackend.Data
             ConfigurationTypeOutputRepository = new GenericSqlServerRepository<ConfigurationTypeOutput>(dataProvider, new SqlServerDataMapper<ConfigurationTypeOutput>());
             ConfigurationTypeParameterRepository = new GenericSqlServerRepository<ConfigurationTypeParameter>(dataProvider, new SqlServerDataMapper<ConfigurationTypeParameter>());
             ConstantRepository = new GenericSqlServerRepository<Constant>(dataProvider, new SqlServerDataMapper<Constant>());
+            CustomerRepository = new GenericSqlServerRepository<Customer>(dataProvider, new SqlServerDataMapper<Customer>());
             ParameterRepository = new GenericSqlServerRepository<Parameter>(dataProvider, new SqlServerDataMapper<Parameter>());
             ParameterValueRepository = new GenericSqlServerRepository<ParameterValue>(dataProvider, new SqlServerDataMapper<ParameterValue>());
         }
@@ -59,6 +60,7 @@ namespace CSIProductConfigurationBackend.Data
         public ISqlServerRepository<ConfigurationTypeOutput> ConfigurationTypeOutputRepository { get; private set; }
         public ISqlServerRepository<ConfigurationTypeParameter> ConfigurationTypeParameterRepository { get; private set; }
         public ISqlServerRepository<Constant> ConstantRepository { get; private set; }
+        public ISqlServerRepository<Customer> CustomerRepository { get; private set; }
         public ISqlServerRepository<Parameter> ParameterRepository { get; private set; }
         public ISqlServerRepository<ParameterValue> ParameterValueRepository { get; private set; }
     }

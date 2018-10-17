@@ -63,6 +63,7 @@
     <Compile Include="Models\ConfigurationTypeOutput.cs" />
     <Compile Include="Models\ConfigurationTypeParameter.cs" />
     <Compile Include="Models\Constant.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Expression.cs" />
     <Compile Include="Models\Parameter.cs" />
     <Compile Include="Models\ParameterValue.cs" />
