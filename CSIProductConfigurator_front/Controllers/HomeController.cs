@@ -131,7 +131,7 @@ namespace CSIProductConfigurator_front.Controllers
         }
         [HttpPost]
 
-        public ActionResult Contact(ConfigurationView cView)
+        public ActionResult ConfigCalc(ConfigurationView cView)
         {
             //Add bind includes
             //Add validate anti forgery
