@@ -11,7 +11,8 @@ namespace CSIProductConfigurator_front
             BundleTable.EnableOptimizations = true;
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                    "~/Scripts/jquery.typeahead.min.js",
+                    "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -26,10 +27,12 @@ namespace CSIProductConfigurator_front
                       "~/Scripts/bootstrap-slider.js",
                       "~/Scripts/sliders.js"));
 
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/bootstrap-slider.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/jquery.typeahead.min.css",
+                      "~/Content/bootstrap-slider.css"));
         }
     }
 }

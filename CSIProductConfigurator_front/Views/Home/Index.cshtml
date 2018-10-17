@@ -39,18 +39,24 @@
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
                                 <div class="col-md-8">
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    <div class="typeahead__container">
+                                        <div class="typeahead__field">
+                                            <div class="typeahead__query">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @type = "search" } })
+                                            </div>
+                                        </div>
+                                    </div>
                                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
-                                <div class="col-md-8">
-                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
                     </div>
                 </div>
             </div>
@@ -87,7 +93,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-default" id="submitButton" data-loading-text="<i class=&quot;fa fa-spinner fa-spin&quot;></i> Calculating...">Calculate</button>
-                                    
+
                                 </div>
                             </div>
                             <div class="row">
@@ -102,7 +108,7 @@
     </div>
 
     @Html.ListBoxFor(model => model.ListOfConfigurationParameterValues, new SelectList(""), htmlAttributes: new { @hidden = "hidden" })
-
+           
 }
 
 <script>
@@ -114,8 +120,8 @@
 
         var someMoreJSON = $.parseJSON(stringThing);
 
-        $.each(someMoreJSON, (index,outputType) => {
-            
+        $.each(someMoreJSON, (index, outputType) => {
+
         });
     })
 
@@ -128,12 +134,12 @@
             console.log("obbers %o", this);
         });
         */
-         
+
         var validator = $(this).validate();
         if (validator.form()) {
 
             $('#submitButton').button('loading');
-            
+
             $('#ListOfConfigurationParameterValues').empty();                               // Clear the contents of parameter list box known as ListOfConfigurationParameterValues
 
             $('[id$=ParamDropDown] :selected').each(function () {                            // Selected value for each item ending with ParamDropDown, add to ListOfConfigurationParameterValues
@@ -187,7 +193,7 @@
 
                     var someJSON = $.parseJSON(data);
 
-                    $.each(someJSON.ConfigurationTypeOutputs, (index,outputType) => {
+                    $.each(someJSON.ConfigurationTypeOutputs, (index, outputType) => {
                         $('#' + outputType.Name).val(outputType.Value);
                     });
 
@@ -199,7 +205,7 @@
                     console.log(errorThrown);
                     console.log(jqXHR.responseText);
                     $('#submitButton').button('reset');
-            }
+                }
             });
         }
     });                                                                                 // End result is a list box containing all parameter IDs and their values
