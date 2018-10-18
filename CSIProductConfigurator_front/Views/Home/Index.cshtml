@@ -32,6 +32,7 @@
                                 <div class="col-md-8">
                                     @*@Html.DropDownListFor(model => model.SelectedCustomerCode, new SelectList(Model.CustomerCodes), "-- Choose customer code --", htmlAttributes: new { @class = "form-control" })*@
                                     @Html.EditorFor(model => model.SelectedCustomerCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.SelectedCustomerCode, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -294,9 +295,14 @@
             }
         },
         display: "Description",
+        order: "asc",
+        mustSelectItem: true,
         callback: {
             onClick: function (node, a, item, event) {
                 $('#SelectedCustomerCode').val(item.Code);
+            },
+            onSearch: function () {
+                $('#SelectedCustomerCode').val("");
             }
         }
     });
