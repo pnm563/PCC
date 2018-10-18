@@ -15,7 +15,7 @@ namespace CSIProductConfigurator_front.Models
         public String Description { get; set; }
         public String CustomerName { get; set; }
 
-        public List<String> CustomerCodes { get; set; }
+        //public List<String> CustomerCodes { get; set; } using typeAhead search instead
         public List<ConfigurationType> ConfigurationTypes { get; set; }
 
         [Display(Name = "Customer Code")]

@@ -36,7 +36,6 @@ namespace CSIProductConfigurator_front.Controllers
             // Add both of the above to the ConfigurationView view model object
             ConfigurationView newView = new ConfigurationView()
             {
-                CustomerCodes = customerCodes,
                 ConfigurationTypes = cTypes
             };
 
@@ -245,14 +244,9 @@ namespace CSIProductConfigurator_front.Controllers
                     ServiceGatewayURI.CustomerURI)
             );
 
-            TypeAheadResults<string> container = new TypeAheadResults<string>();
+            TypeAheadResults<Customer> container = new TypeAheadResults<Customer>();
 
-            container.data.TheResults = new List<string>();
-            foreach (Customer thing in theCustomers)
-            {
-                container.data.TheResults.Add(thing.Description);
-            }
-            
+            container.data.TheResults = theCustomers;
 
             return Content(JsonConvert.SerializeObject(container));
         }
