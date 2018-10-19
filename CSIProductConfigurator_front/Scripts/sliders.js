@@ -2,8 +2,8 @@
     $("#CPWSlider").slider({
         value: 0,
         min: 0,
-        max: 500,
-        step: 1,
+        max: 52700,
+        step: 10,
         tooltip: 'always',
         formatter: function (value) {
             return value;
@@ -19,7 +19,7 @@
         value: 0,
         min: 0,
         max: 1500,
-        step: 1,
+        step: 10,
         tooltip: 'always',
         formatter: function (value) {
             return value + " TB";
@@ -35,7 +35,7 @@
         value: 0,
         min: 0,
         max: 5000,
-        step: 50,
+        step: 10,
         tooltip: 'always',
         formatter: function (value) {
             return value + " TB";
