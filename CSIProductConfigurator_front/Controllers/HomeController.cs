@@ -29,15 +29,32 @@ namespace CSIProductConfigurator_front.Controllers
     {
         public ActionResult Index()
         {
-            // Create a dummy list of customer codes
-            List<String> customerCodes = new List<String> { "cust001", "cust002", "Cust003" };
-
             // Fetch all configuration types from the back end
-            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
-            List<ConfigurationType> cTypes = serviceRequest.ExecuteRequest<List<ConfigurationType>>(HttpRequestMethod.GET,
-                String.Format(
-                    ServiceGatewayURI.ConfigurationTypeURI)
-            );
+
+            Result res = Helper.GetOAUTHToken();
+
+            List<ConfigurationType> cTypes = new List<ConfigurationType>();
+
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], res.ResultText))
+            {
+
+                HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.ConfigurationTypeURI)).Result;
+                if (response != null)
+                {
+                    using (response)
+                    {
+                        if (response != null)
+                        {
+                            if (response.StatusCode == HttpStatusCode.OK)
+                            {
+                                cTypes = response.Content.ReadAsAsync<List<ConfigurationType>>().Result;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //need a try catch in here, expections are just splatted to the user with the red/beige screen :-/
 
             // Add both of the above to the ConfigurationView view model object
             ConfigurationView newView = new ConfigurationView()

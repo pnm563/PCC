@@ -200,7 +200,6 @@
     <Compile Include="Controllers\ConfigurationTypeOutputController.cs" />
     <Compile Include="Controllers\ConfigurationTypeParameterController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\ParameterValueController.cs" />
     <Compile Include="CSIProductConfiguration\CaseContext.cs" />
@@ -344,7 +343,6 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
