@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace CSIProductConfigurationBackend.Controllers
 {
-    //[OAUTHattribute]
+    [OAUTHattribute]
     public class ParameterController : ApiController
     {
         // GET api/<controller>
