@@ -203,7 +203,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\ParameterValueController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="CSIProductConfiguration\CaseContext.cs" />
     <Compile Include="CSIProductConfiguration\CaseValueContext.cs" />
     <Compile Include="CSIProductConfiguration\ConditionContext.cs" />
