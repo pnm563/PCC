@@ -41,6 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutomationCommon, Version=2.0.6870.22043, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutomationCommon.2.0.6870.22043\lib\net45\AutomationCommon.dll</HintPath>
+    </Reference>
     <Reference Include="DropNet, Version=1.9.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DropNet.1.9.12.0\lib\net40\DropNet.dll</HintPath>
       <Private>True</Private>
@@ -58,9 +61,8 @@
       <HintPath>..\packages\Niu.OneWorkspace.DataAccess.3.2.6704.28645\lib\net45\Microsoft.Xrm.Sdk.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Niu.OneWorkspace.Common, Version=3.2.6681.15856, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Niu.OneWorkspace.Common.3.2.6681.15856\lib\net45\Niu.OneWorkspace.Common.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Niu.OneWorkspace.Common, Version=3.2.6761.16253, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Niu.OneWorkspace.Common.3.2.6761.16253\lib\net45\Niu.OneWorkspace.Common.dll</HintPath>
     </Reference>
     <Reference Include="Niu.OneWorkspace.DataAccess, Version=3.2.6704.28645, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Niu.OneWorkspace.DataAccess.3.2.6704.28645\lib\net45\Niu.OneWorkspace.DataAccess.dll</HintPath>

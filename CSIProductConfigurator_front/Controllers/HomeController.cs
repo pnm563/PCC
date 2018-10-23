@@ -1,8 +1,13 @@
-﻿using CSIProductConfigurationCommon.Enums;
+﻿using AutomationCommon.Helper;
+using AutomationCommon.Helpers;
+using AutomationCommon.Model.WebAPI;
+using AutomationCommon.Security;
+using CSIProductConfigurationCommon.Enums;
 using CSIProductConfigurationCommon.Models;
 using CSIProductConfigurator_front.Controllers.Overrides;
 using CSIProductConfigurator_front.Data.Configuration;
 using CSIProductConfigurator_front.Data.URIs;
+using CSIProductConfigurator_front.Helpers;
 using CSIProductConfigurator_front.Models;
 using Newtonsoft.Json;
 using Niu.OneWorkspace.Common.Enums;
@@ -13,6 +18,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -235,14 +241,28 @@ namespace CSIProductConfigurator_front.Controllers
 
         public ActionResult Customers()
         {
-            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
-
             List<Customer> theCustomers = new List<Customer>();
 
-            theCustomers = serviceRequest.ExecuteRequest<List<Customer>>(HttpRequestMethod.GET,
-                String.Format(
-                    ServiceGatewayURI.CustomerURI)
-            );
+            Result res = Helper.GetOAUTHToken();
+
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], res.ResultText))
+            {
+                
+                HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.CustomerURI)).Result;
+                if (response != null)
+                {
+                    using (response)
+                    {
+                        if (response != null)
+                        {
+                            if (response.StatusCode == HttpStatusCode.OK)
+                            {
+                                theCustomers = response.Content.ReadAsAsync<List<Customer>>().Result;
+                            }
+                        }
+                    }
+                }
+            }
 
             TypeAheadResults<Customer> container = new TypeAheadResults<Customer>();
 
