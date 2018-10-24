@@ -85,7 +85,7 @@ namespace CSIProductConfigurator_front.Controllers
             }
             //Also handle if id not found
 
-            #region Get OAUTH token
+            #region Fetch OAUTH token
             if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
             {
                 this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
@@ -159,16 +159,18 @@ namespace CSIProductConfigurator_front.Controllers
 
         public ActionResult ConfigurationTypeOutputList(String id)
         {
-            #region fetch OAUTHtoken and output type list
+            #region Fetch OAUTHtoken
             if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
             {
                 this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
             }
 
             OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+            #endregion
 
             List<ConfigurationTypeOutput> cTypeOutputs = new List<ConfigurationTypeOutput>();
 
+            #region Fetch output type list
             using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
             {
                 HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.GetConfigurationTypeOutputByConfigurationTypeIDURI,id)).Result;
@@ -184,6 +186,7 @@ namespace CSIProductConfigurator_front.Controllers
                 }
             }
             #endregion 
+
             return PartialView("_ConfigurationTypeOutputList", cTypeOutputs);
         }
 
@@ -300,16 +303,18 @@ namespace CSIProductConfigurator_front.Controllers
         [HttpGet]
         public ActionResult PreFilledFormTest()
         {
-            #region Fetch OAUTH token, followed by pre filled form test
+            #region Fetch OAUTH token
             if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
             {
                 this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
             }
 
             OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+            #endregion
 
             ConfigurationDetail configurationDetail = new ConfigurationDetail();
 
+            #region Followed by pre filled form test
             using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
             {
 
@@ -336,16 +341,18 @@ namespace CSIProductConfigurator_front.Controllers
 
         public ActionResult Customers()
         {
-            #region Fetch OAUTH token, followed by customer list
+            #region Fetch OAUTH token
             if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
             {
                 this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
             }
 
             OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+            #endregion
 
             List<Customer> theCustomers = new List<Customer>();
 
+            #region Followed by customer list
             using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
             {
                 
