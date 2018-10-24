@@ -17,8 +17,9 @@ namespace CSIProductConfigurationBackend.Controllers
         public ConfigurationDetail Post(ConfigurationDetail ctdView)
         {
             ConfigurationTypeOutputContext _ctoctx = new ConfigurationTypeOutputContext();
+            HttpRequestMessage request = Request;
             ctdView.ConfigurationTypeOutputs = _ctoctx.GetConfigurationTypeOutputsByConfigurationTypeID(ctdView.ConfigurationTypeID);
-
+            
             ConfigurationDetailContext _ctx = new ConfigurationDetailContext();
             ctdView = _ctx.GetPricing(ctdView);
             
