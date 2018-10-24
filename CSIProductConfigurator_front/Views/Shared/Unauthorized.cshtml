@@ -1,0 +1,20 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Unauthorized";
+}
+
+<div class="container">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Unauthorized
+                </h4>
+            </div>
+            <div class="panel-body">
+                @(String.IsNullOrEmpty(ViewBag.UnauthorizedMessage) ? "Unauthorized" : ViewBag.UnauthorizedMessage)
+            </div>
+        </div>
+    </div>
+</div>
