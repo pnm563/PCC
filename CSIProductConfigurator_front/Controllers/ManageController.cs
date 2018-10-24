@@ -10,7 +10,7 @@ using CSIProductConfigurator_front.Models;
 
 namespace CSIProductConfigurator_front.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
