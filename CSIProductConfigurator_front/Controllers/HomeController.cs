@@ -32,10 +32,17 @@ namespace CSIProductConfigurator_front.Controllers
         {
             // Fetch all configuration types from the back end
 
-
             List<ConfigurationType> cTypes = new List<ConfigurationType>();
 
-            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], ""))
+            #region Make call to back end with OAUTH
+            if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
+            {
+                this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
+            }
+            
+            OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
             {
 
                 HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.ConfigurationTypeURI)).Result;
@@ -43,16 +50,14 @@ namespace CSIProductConfigurator_front.Controllers
                 {
                     using (response)
                     {
-                        if (response != null)
+                        if (response.StatusCode == HttpStatusCode.OK)
                         {
-                            if (response.StatusCode == HttpStatusCode.OK)
-                            {
-                                cTypes = response.Content.ReadAsAsync<List<ConfigurationType>>().Result;
-                            }
+                            cTypes = response.Content.ReadAsAsync<List<ConfigurationType>>().Result;
                         }
                     }
                 }
             }
+            #endregion
 
             //need a try catch in here, expections are just splatted to the user with the red/beige screen :-/
 
@@ -72,43 +77,63 @@ namespace CSIProductConfigurator_front.Controllers
             //Returns a partial view with all dynamic parameters for selected configuration type
             //A <div> is populated via a .load Ajax call to this controller method
 
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Also handle if id not found
 
-            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
+            #region Get OAUTH token
+            if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
+            {
+                this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
+            }
+
+            OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+            #endregion
 
             List<ConfigurationTypeParameter> cTypeParams = new List<ConfigurationTypeParameter>();
             List<ParameterValue> paramVals = new List<ParameterValue>();
 
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
+            {
+                #region GetConfigurationTypeParameters
+                // Fetch and populate cTypeParams with all the parameters relevant to the configuration type passed into this method via id
+                HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.GetConfigurationTypeParameterByConfigurationTypeIDURI, id)).Result;
+                if (response != null)
+                {
+                    using (response)
+                    {
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            cTypeParams = response.Content.ReadAsAsync<List<ConfigurationTypeParameter>>().Result;
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(response.StatusCode);
+                        }
+                    }
+                }
+                #endregion
 
-            // Fetch and populate cTypeParams with all the parameters relevant to the configuration type passed into this method via id
-            try
-            {
-                cTypeParams = serviceRequest.ExecuteRequest<List<ConfigurationTypeParameter>>(HttpRequestMethod.GET,
-                    String.Format(
-                        ServiceGatewayURI.GetConfigurationTypeParameterByConfigurationTypeIDURI, id)
-                );
-            }
-            catch
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            // Fetch all fixed parameter values ready to populate dropdown boxes with these choices.
-            try
-            {
-                paramVals = serviceRequest.ExecuteRequest<List<ParameterValue>>(HttpRequestMethod.GET,
-                    String.Format(
-                        ServiceGatewayURI.ParameterValueURI)
-                );
-            }
-            catch
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                #region GetParamterValues
+                // Fetch all fixed parameter values ready to populate dropdown boxes with these choices.
+                response = client.GetAsync(String.Format(ServiceGatewayURI.ParameterValueURI)).Result;
+                if (response != null)
+                {
+                    using (response)
+                    {
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            paramVals = response.Content.ReadAsAsync<List<ParameterValue>>().Result;
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(response.StatusCode);
+                        }
+                    }
+                }
+                #endregion
             }
 
             // Nested loop round each configuration type, adding fixed parameter values to the list when there is a match from the ParameterValues collection
@@ -245,27 +270,47 @@ namespace CSIProductConfigurator_front.Controllers
         [HttpGet]
         public ActionResult PreFilledFormTest()
         {
-            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
-            ConfigurationDetail configurationDetail = new ConfigurationDetail();
-
-            configurationDetail = serviceRequest.ExecuteRequest<ConfigurationDetail>(HttpRequestMethod.GET,
-                String.Format(
-                ServiceGatewayURI.ConfigurationDetailURI)
-                );
-
-            return View(configurationDetail);
-        }
-
-        public ActionResult Customers()
-        {
-            List<Customer> theCustomers = new List<Customer>();
-
+            #region Fetch OAUTH token, followed by pre filled form test
             if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
             {
                 this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
             }
 
             OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+
+            ConfigurationDetail configurationDetail = new ConfigurationDetail();
+
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
+            {
+
+                HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.ConfigurationDetailURI)).Result;
+                if (response != null)
+                {
+                    using (response)
+                    {
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            configurationDetail = response.Content.ReadAsAsync<ConfigurationDetail>().Result;
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            return View(configurationDetail);
+        }
+
+        public ActionResult Customers()
+        {
+            #region Fetch OAUTH token, followed by customer list
+            if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
+            {
+                this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
+            }
+
+            OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+
+            List<Customer> theCustomers = new List<Customer>();
 
             using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
             {
@@ -275,16 +320,14 @@ namespace CSIProductConfigurator_front.Controllers
                 {
                     using (response)
                     {
-                        if (response != null)
+                        if (response.StatusCode == HttpStatusCode.OK)
                         {
-                            if (response.StatusCode == HttpStatusCode.OK)
-                            {
-                                theCustomers = response.Content.ReadAsAsync<List<Customer>>().Result;
-                            }
+                            theCustomers = response.Content.ReadAsAsync<List<Customer>>().Result;
                         }
                     }
                 }
             }
+            #endregion
 
             TypeAheadResults<Customer> container = new TypeAheadResults<Customer>();
 
