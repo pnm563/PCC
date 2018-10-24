@@ -14,7 +14,7 @@ namespace CSIProductConfigurator_front.Models
         public String Name { get; set; }
         [Required]
         public String Description { get; set; }
-        [Required,Display(Name = "Customer name")]
+        [Required,Display(Name = "Customer Name")]
         public String CustomerName { get; set; }
 
         //public List<String> CustomerCodes { get; set; } using typeAhead search instead

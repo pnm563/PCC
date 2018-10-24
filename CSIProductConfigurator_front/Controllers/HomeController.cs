@@ -32,16 +32,18 @@ namespace CSIProductConfigurator_front.Controllers
         {
             // Fetch all configuration types from the back end
 
-            List<ConfigurationType> cTypes = new List<ConfigurationType>();
-
-            #region Make call to back end with OAUTH
+            #region Fetch OAUTH token
             if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
             {
                 this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
             }
             
             OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+            #endregion
 
+            List<ConfigurationType> cTypes = new List<ConfigurationType>();
+
+            #region Fetch list of configuration types
             using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
             {
 
@@ -198,21 +200,38 @@ namespace CSIProductConfigurator_front.Controllers
             //Add validate anti forgery
             //Add Is Model Valid?
 
-            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
+            #region Fetch OAUTHtoken
+            if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
+            {
+                this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
+            }
+
+            OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+            #endregion
 
             List<Parameter> theParams = new List<Parameter>();
 
-            try
+            #region Fetch list of parameters
+            
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
             {
-                theParams = serviceRequest.ExecuteRequest<List<Parameter>>(HttpRequestMethod.GET,
-                    String.Format(
-                        ServiceGatewayURI.ParameterURI)
-                );
+                HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.ParameterURI)).Result;
+                if (response != null)
+                {
+                    using (response)
+                    {
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            theParams = response.Content.ReadAsAsync<List<Parameter>>().Result;
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(response.StatusCode);
+                        }
+                    }
+                }
             }
-            catch
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            #endregion
 
             ConfigurationDetail configurationDetail = new ConfigurationDetail()
             {
@@ -303,6 +322,10 @@ namespace CSIProductConfigurator_front.Controllers
                         {
                             configurationDetail = response.Content.ReadAsAsync<ConfigurationDetail>().Result;
                         }
+                        else
+                        {
+                            return new HttpStatusCodeResult(response.StatusCode);
+                        }
                     }
                 }
             }
@@ -334,6 +357,10 @@ namespace CSIProductConfigurator_front.Controllers
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
                             theCustomers = response.Content.ReadAsAsync<List<Customer>>().Result;
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(response.StatusCode);
                         }
                     }
                 }
