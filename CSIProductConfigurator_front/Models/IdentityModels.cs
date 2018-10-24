@@ -21,7 +21,7 @@ namespace CSIProductConfigurator_front.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("ASPIdentity", throwIfV1Schema: false)
         {
         }
 
