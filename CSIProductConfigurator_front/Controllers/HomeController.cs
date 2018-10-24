@@ -271,11 +271,26 @@ namespace CSIProductConfigurator_front.Controllers
 
             HttpContent content = new StringContent(JSONdocType, Encoding.UTF8, "application/json");
 
-            configurationDetail = serviceRequest.ExecuteRequest<ConfigurationDetail>(HttpRequestMethod.POST,
-                String.Format(
-                ServiceGatewayURI.ConfigurationDetailURI),
-                content
-                );
+            #region POST params to ConfigDetail controller
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
+            {
+                HttpResponseMessage response = client.PostAsJsonAsync(String.Format(ServiceGatewayURI.ConfigurationDetailURI),content).Result;
+                if (response != null)
+                {
+                    using (response)
+                    {
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            configurationDetail = response.Content.ReadAsAsync<ConfigurationDetail>().Result;
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(response.StatusCode);
+                        }
+                    }
+                }
+            }
+            #endregion
 
             foreach (ConfigurationTypeOutput output in configurationDetail.ConfigurationTypeOutputs)
             {
