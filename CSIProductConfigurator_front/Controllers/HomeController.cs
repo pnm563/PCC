@@ -26,6 +26,7 @@ using System.Web.Mvc;
 
 namespace CSIProductConfigurator_front.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -195,8 +196,8 @@ namespace CSIProductConfigurator_front.Controllers
 
             return View();
         }
-        [HttpPost]
 
+        [HttpPost]
         public ActionResult ConfigCalc(ConfigurationView cView)
         {
             //Add bind includes
