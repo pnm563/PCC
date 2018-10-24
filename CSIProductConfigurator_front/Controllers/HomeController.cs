@@ -157,20 +157,31 @@ namespace CSIProductConfigurator_front.Controllers
 
         public ActionResult ConfigurationTypeOutputList(String id)
         {
-            ServiceRequest serviceRequest = new ServiceRequest(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI]);
+            #region fetch OAUTHtoken and output type list
+            if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
+            {
+                this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
+            }
+
+            OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+
             List<ConfigurationTypeOutput> cTypeOutputs = new List<ConfigurationTypeOutput>();
 
-            try
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
             {
-                cTypeOutputs = serviceRequest.ExecuteRequest<List<ConfigurationTypeOutput>>(HttpRequestMethod.GET,
-                    String.Format(
-                        ServiceGatewayURI.GetConfigurationTypeOutputByConfigurationTypeIDURI, id)
-                );
+                HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.GetConfigurationTypeOutputByConfigurationTypeIDURI,id)).Result;
+                if (response != null)
+                {
+                    using (response)
+                    {
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            cTypeOutputs = response.Content.ReadAsAsync<List<ConfigurationTypeOutput>>().Result;
+                        }
+                    }
+                }
             }
-            catch
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            #endregion 
             return PartialView("_ConfigurationTypeOutputList", cTypeOutputs);
         }
 
