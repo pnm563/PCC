@@ -1,5 +1,6 @@
 ﻿using AutomationCommon.Helper;
 using AutomationCommon.Helpers;
+using AutomationCommon.Model.OAUTH;
 using AutomationCommon.Model.WebAPI;
 using AutomationCommon.Security;
 using CSIProductConfigurationCommon.Enums;
@@ -31,11 +32,10 @@ namespace CSIProductConfigurator_front.Controllers
         {
             // Fetch all configuration types from the back end
 
-            Result res = Helper.GetOAUTHToken();
 
             List<ConfigurationType> cTypes = new List<ConfigurationType>();
 
-            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], res.ResultText))
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], ""))
             {
 
                 HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.ConfigurationTypeURI)).Result;
@@ -260,9 +260,14 @@ namespace CSIProductConfigurator_front.Controllers
         {
             List<Customer> theCustomers = new List<Customer>();
 
-            Result res = Helper.GetOAUTHToken();
+            if (!Helper.CheckSessionOAUTHToken((OAUTHtoken)this.Session["OAUTHtoken"]))
+            {
+                this.Session["OAUTHtoken"] = Helper.GetOAUTHToken();
+            }
 
-            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], res.ResultText))
+            OAUTHtoken token = (OAUTHtoken)this.Session["OAUTHtoken"];
+
+            using (HttpClient client = NetworkHelper.GetHttpClient(ConfigurationManager.AppSettings[ConfigurationParams.ServiceGatewayURI], token.access_token))
             {
                 
                 HttpResponseMessage response = client.GetAsync(String.Format(ServiceGatewayURI.CustomerURI)).Result;

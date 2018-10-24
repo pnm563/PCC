@@ -169,6 +169,7 @@
     </Compile>
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Models\ConfigurationView.cs" />
+    <Compile Include="Models\OAUTHtokenWIthExpiry.cs" />
     <Compile Include="Models\Results.cs" />
     <Compile Include="Models\TypeAheadResults.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

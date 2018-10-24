@@ -1,4 +1,5 @@
-﻿using AutomationCommon.Helper;
+﻿using AutomationCommon;
+using AutomationCommon.Helper;
 using AutomationCommon.Helpers;
 using AutomationCommon.Model.OAUTH;
 using AutomationCommon.Model.WebAPI;
@@ -19,10 +20,10 @@ namespace CSIProductConfigurator_front.Helpers
 {
     public class Helper
     {
-        public static Result GetOAUTHToken()
+        public static OAUTHtoken GetOAUTHToken()
         {
             Result returnResult = new Result();
-
+            
             Assembly assembly = Assembly.GetExecutingAssembly();
             GuidAttribute attribute = (GuidAttribute)assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0];
             String id = attribute.Value;
@@ -61,8 +62,8 @@ namespace CSIProductConfigurator_front.Helpers
                         else
                         {
                             OAUTHtokenReturned = JsonConvert.DeserializeObject<OAUTHtoken>(quangoPingResponse.Content.ReadAsStringAsync().Result);
+
                             returnResult.Outcome = "Success";
-                            returnResult.ResultText = OAUTHtokenReturned.access_token;
                         }
                     }
                 }
@@ -85,7 +86,24 @@ namespace CSIProductConfigurator_front.Helpers
                     throw new Exception(fail);
                 }
             }
-            return returnResult;
+            return OAUTHtokenReturned;
+        }
+
+        public static bool CheckSessionOAUTHToken(OAUTHtoken tokenIn)
+        {
+            if (tokenIn == null)
+            {
+                return false;
+            }
+
+            Result res = OAUTHHelper.CheckAuth(tokenIn.access_token);
+
+            if (res.Outcome.Equals("Success"))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
