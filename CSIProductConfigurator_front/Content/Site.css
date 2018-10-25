@@ -40,3 +40,7 @@ textarea {
 .slider.slider-horizontal {
     width: 100%; /* sample value - set it as you like*/
 }
+
+.panel-default>.panel-heading-white .blueBadge {
+    background-color: #ACE;
+}
