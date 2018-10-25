@@ -1,9 +1,10 @@
 ﻿function initSliders() {
     $("#CPWSlider").slider({
         value: 0,
-        min: 0,
+        min: 2500,
         max: 52700,
-        step: 10,
+        step: 100,
+        focus: true,
         tooltip: 'always',
         formatter: function (value) {
             return value;
@@ -18,8 +19,8 @@
     $("#Tier1StorageSlider").slider({
         value: 0,
         min: 0,
-        max: 1500,
-        step: 10,
+        max: 20,
+        step: 1,
         tooltip: 'always',
         formatter: function (value) {
             return value + " TB";
@@ -34,8 +35,8 @@
     $("#Tier2StorageSlider").slider({
         value: 0,
         min: 0,
-        max: 5000,
-        step: 10,
+        max: 20,
+        step: 1,
         tooltip: 'always',
         formatter: function (value) {
             return value + " TB";
