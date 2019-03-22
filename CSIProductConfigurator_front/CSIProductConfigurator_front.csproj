@@ -233,6 +233,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\CSI-logo_Blue_RGB_FINAL.png" />
     <Content Include="Images\CSI.png" />
     <Content Include="Images\gary.PNG" />
     <Content Include="Images\garydev.PNG" />
