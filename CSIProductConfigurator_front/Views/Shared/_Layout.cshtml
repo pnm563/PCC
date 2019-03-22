@@ -15,17 +15,19 @@
     <div class="container">
         <div class="panel-group">
             <div class="panel panel-default">
-                <div class="panel-heading panel-heading-white">
-                    
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="~/Images/CSI.png" />
-                            </div>
-                            <div class="col-md-4">
-                                <h2>Power Cloud configurator - dev</h2>
-                            </div>
+                <div class="panel-heading panel-heading-white clearfix">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="~/Images/CSI.png" />
                         </div>
-                    
+                        <div class="col-md-5">
+                            <h2>Power Cloud configurator - DEV</h2>
+                        </div>
+                        <div class="col-md-5 text-right">
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
                 </div>
 
             </div>
